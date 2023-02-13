@@ -1,0 +1,16 @@
+:root {
+    --colorRed: #700000;
+    --colorDark: #21465C;
+    --colorMid: #3D81A8;
+    --colorLight: #95C5E1;
+}
+
+.colorText {
+    color: var(--colorDark);
+    font-family: 'Reenie Beanie', cursive;
+    font-family: 'Special Elite', cursive;
+}
+
+header {
+    padding: 70px 0;
+}
