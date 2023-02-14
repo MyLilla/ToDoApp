@@ -11,15 +11,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser (String name) {
+    public User createUser(String name, String login, String password) {
         User user = new User();
 
         user.setUserName(name);
-        user.setLogin("Lilla");
-        user.setPassword("321");
-
+        user.setLogin(login);
+        user.setPassword(password);
         userRepository.saveUser(user);
 
         return user;
+    }
+
+    public User getUserWithPassword(String login, String password) {
+        return userRepository.getWithPassword(login, password);
     }
 }

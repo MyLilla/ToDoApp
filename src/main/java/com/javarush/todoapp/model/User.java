@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(schema = "todo", name = "user")
 public class User {

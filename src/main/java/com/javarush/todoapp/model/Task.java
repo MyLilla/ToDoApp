@@ -44,4 +44,8 @@ public class Task {
     private LocalDateTime createDate;
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
 }

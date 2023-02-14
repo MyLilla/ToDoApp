@@ -4,14 +4,56 @@
     <meta charset="UTF-8">
 
     <title>ToDoApplication</title>
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<header>
+    <div class="container"></div>
+</header>
 
-<h1>user: </h1>
+<body onload="show_tasks()">
+
+<section id="tasks">
+    <div class="text-center container">
+
+<table id="table">
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Hours</th>
+        <th>Status</th>
+        <th>Tegs</th>
+        <th>Priority</th>
+        <th>Date</th>
+    </tr>
+</table>
+
+    </div>
+</section>
+
+<script>
+    function show_tasks() {
+
+        let url = "/ToDoApp_war_exploded/task";
+
+        $.get(url, function (response) {
+             $.each(response, function (i, param) {   // перебор элементов ответа и применение к каждому функции
+                $('<tr>').html("<td>"
+                    + param.title + "</td><td>"
+                    + param.description + "</td><td>"
+                    + param.hours + "</td><td>"
+                    + param.status + "</td><td>"
+                    + param.tegs + "</td><td>"     // сделать перебор тегов
+                    + param.priority + "</td><td>"
+                    + param.createDate + "</td>"
+                    + "</tr>"
+                ).appendTo("#table");               // добавление в элемент с id - table
+             });
+         });
+    }
+</script>
 
 </body>
 </html>

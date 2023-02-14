@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserServlet", value = "/user")
-public class UserServlet extends HttpServlet {
+@WebServlet(name = "NewUserServlet", value = "/newUser")
+public class NewUserServlet extends HttpServlet {
 
     private UserService userService;
 
@@ -25,18 +25,20 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+        System.out.println("сработал GET  в новом юзере");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // сделать dto
+        String name = request.getParameter("name");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        User user = userService.getUserWithPassword(login, password);
-
+        User user = userService.createUser(name, login, password);
         request.getSession().setAttribute("user", user);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
