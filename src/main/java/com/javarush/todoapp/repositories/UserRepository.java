@@ -2,13 +2,18 @@ package com.javarush.todoapp.repositories;
 
 import com.javarush.todoapp.DbConfiguration;
 import com.javarush.todoapp.model.User;
+import com.javarush.todoapp.services.TaskService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 public class UserRepository extends GeneralRepository {
 
+    private final Logger LOGGER = LogManager.getLogger(UserRepository.class);
     public UserRepository(DbConfiguration dbConfiguration) {
         super(dbConfiguration);
+        LOGGER.info("Created UserRepository");
     }
 
     public void saveUser(User user) {
@@ -24,7 +29,7 @@ public class UserRepository extends GeneralRepository {
         try (Session session = dbConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
             Query query = session.createQuery(
-                    "from User u where u.login = " + login, User.class
+                    "from User u where u.login = '" + login + "'", User.class
             );
             User user = (User) query.getSingleResult();
             if (user.getPassword().equals(password)){

@@ -21,6 +21,6 @@ public class TaskDto {
     private Set<Teg> tegs;
     private Priority priority;
     private Set<Comment> comments;
-    private LocalDateTime createDate;
+    private String createDate;
 
 }

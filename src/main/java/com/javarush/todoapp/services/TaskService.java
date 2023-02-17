@@ -5,32 +5,39 @@ import com.javarush.todoapp.mappers.TaskMapper;
 import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.TaskRepository;
-import com.javarush.todoapp.repositories.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskService {
 
-    TaskRepository taskRepository;
+    private final Logger LOGGER = LogManager.getLogger(TaskService.class);
 
+    TaskRepository taskRepository;
+    TaskMapper taskMapper = TaskMapper.INSTANCE;
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
+        LOGGER.info("Created TaskService");
     }
 
     public List<TaskDto> getAllTasks(User user) {
 
-        taskRepository.getAll(user.getId());
-        return null;
+        List<Task> taskList = taskRepository.getAll(user.getId());
+        List<TaskDto> taskDtoList = new ArrayList<>();
+
+        for (Task task : taskList) {
+            TaskDto taskDto = taskMapper.toTaskDto(task);
+            taskDtoList.add(taskDto);
+        }
+        return taskDtoList;
     }
 
     public TaskDto getTasksById(Long id) {
 
-        taskRepository.getById(1L);
-
-        TaskMapper productMapper = TaskMapper.INSTANCE;
-
-        TaskDto dto = productMapper.toProductDTO(taskRepository.getById(1L));
-
+        TaskDto dto = taskMapper.toTaskDto(taskRepository.getById(id));
+        LOGGER.info("TaskDto was get for User with id: {}", id);
         return dto;
     }
 }

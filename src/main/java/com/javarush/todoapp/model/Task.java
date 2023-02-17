@@ -5,6 +5,8 @@ import com.javarush.todoapp.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,14 +32,14 @@ public class Task {
     @Enumerated
     private Status status;
 
-    @OneToMany// у одной задачи несколько тегов
+    @OneToMany (fetch = FetchType.EAGER)// у одной задачи несколько тегов
     @JoinColumn(name = "teg_id")
     private Set<Teg> tegs;
 
     @Enumerated
     private Priority priority;
 
-    @OneToMany // у одной задачи может быть много коммитов
+    @OneToMany(fetch = FetchType.EAGER) // у одной задачи может быть много коммитов
     @JoinColumn(name = "comment_id")
     private Set<Comment> comments;
     @CreationTimestamp
@@ -48,4 +50,5 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
+
 }

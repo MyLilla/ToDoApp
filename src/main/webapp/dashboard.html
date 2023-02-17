@@ -18,42 +18,49 @@
 <section id="tasks">
     <div class="text-center container">
 
-<table id="table">
-    <tr>
-        <th>Task</th>
-        <th>Description</th>
-        <th>Hours</th>
-        <th>Status</th>
-        <th>Tegs</th>
-        <th>Priority</th>
-        <th>Date</th>
-    </tr>
-</table>
+        <table id="table">
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>Tegs</th>
+                <th>Priority</th>
+                <th>Date</th>
+            </tr>
+        </table>
 
     </div>
 </section>
 
+<div class="text-center container">
+    <button type="button" class="btn btn-success text-center" href="task.html">
+        Create new task
+    </button>
+</div>
+
 <script>
     function show_tasks() {
 
-        let url = "/ToDoApp_war_exploded/task";
+        let url = "task";
 
-        $.get(url, function (response) {
-             $.each(response, function (i, param) {   // перебор элементов ответа и применение к каждому функции
+        $.get(url, function (task) {
+            $.each(response, function (i, task) {   // перебор элементов ответа и применение к каждому функции
                 $('<tr>').html("<td>"
-                    + param.title + "</td><td>"
-                    + param.description + "</td><td>"
-                    + param.hours + "</td><td>"
-                    + param.status + "</td><td>"
-                    + param.tegs + "</td><td>"     // сделать перебор тегов
-                    + param.priority + "</td><td>"
-                    + param.createDate + "</td>"
+                    + task.title + "</td><td>"
+                    + task.description + "</td><td>"
+                    + task.hours + "</td><td>"
+                    + task.status + "</td><td>"
+                    + task.tegs + "</td><td>"     // сделать перебор тегов
+                    + task.priority + "</td><td>"
+                    + task.createDate + "</td>"
                     + "</tr>"
                 ).appendTo("#table");               // добавление в элемент с id - table
-             });
-         });
+            });
+        });
     }
 </script>
+
 
 </body>
 </html>

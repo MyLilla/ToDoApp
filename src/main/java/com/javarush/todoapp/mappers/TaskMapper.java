@@ -9,5 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface TaskMapper {
 
     TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
-    TaskDto toProductDTO(Task task);
+    TaskDto toTaskDto(Task task);
 }

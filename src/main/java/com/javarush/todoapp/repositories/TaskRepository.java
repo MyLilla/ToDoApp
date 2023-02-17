@@ -3,6 +3,7 @@ package com.javarush.todoapp.repositories;
 import com.javarush.todoapp.DbConfiguration;
 import com.javarush.todoapp.model.Task;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class TaskRepository extends GeneralRepository {
     public List<Task> getAll(Long id) {
         try (Session session = dbConfiguration.getSessionFactory().openSession()) {
             Query<Task> query = session.createQuery(
-                    "FROM Task t WHERE userId = " + id, Task.class);
+                    "from Task t", Task.class);
             return query.list();
         }
     }
@@ -34,9 +35,7 @@ public class TaskRepository extends GeneralRepository {
 
     public Task getById(Long id) {
         try (Session session = dbConfiguration.getSessionFactory().openSession()) {
-            Query<Task> query = session.createQuery(
-                    "FROM Task t WHERE t.id = " + id, Task.class);
-            return query.getSingleResult();
+            return session.get(Task.class, id);
         }
     }
 }

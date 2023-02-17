@@ -18,9 +18,10 @@ public class DbConfiguration {
 
     public DbConfiguration() {
         Properties properties = new Properties();
-        properties.put(Environment.DRIVER, "org.postgresql.Driver");
+        //properties.put(Environment.DRIVER, "org.postgresql.Driver");
+        properties.put(Environment.DRIVER, "com.p6spy.engine.spy.P6SpyDriver");
         properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-        properties.put(Environment.URL, "jdbc:postgresql://localhost:5432/postgres");
+        properties.put(Environment.URL, "jdbc:p6spy:postgresql://localhost:5432/postgres");
         properties.put(Environment.USER, "postgres");
         properties.put(Environment.PASS, "1234");
 
