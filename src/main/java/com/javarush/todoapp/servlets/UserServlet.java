@@ -29,20 +29,20 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("/user GET");
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("url: /user, method: POST");
 
-        LOGGER.info("/user POST");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         User user = userService.getUserWithPassword(login, password);
+        LOGGER.debug("User {} was got with login: {} and password: {}", user, login, password);
 
         request.getSession().setAttribute("user", user);
-
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }
 }

@@ -10,4 +10,6 @@ public interface TaskMapper {
 
     TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
     TaskDto toTaskDto(Task task);
+
+    Task mapToEntity (TaskDto taskDto);
 }

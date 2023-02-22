@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="container text-center">
+
+    <h1>Creating new task</h1>
+    <form id="newTask" action="task" method="post">
+
+        Task title:<br>
+        <input type="text" name="title" id="title"><br>
+        Description:<br>
+        <input type="text" name="description" id="description">
+        Hours for task:<br>
+        <input type="text" name="hours" id="hours"><br>
+        Tegs:<br>
+        <input type="text" name="tegs" id="tegs">
+        Priority:<br>
+        <select name="priority" id="priority">
+            <option value="HIGH">high</option>
+            <option value="MEDIUM">medium</option>
+            <option value="LOW">low</option>
+        </select>
+        <br>
+        <input id="create_new_task" type="submit" value="Create">
+    </form>
+</div>
+
+</body>
+</html>

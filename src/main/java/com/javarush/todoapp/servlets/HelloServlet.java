@@ -1,4 +1,4 @@
-package com.javarush.todoapp.srvlets;
+package com.javarush.todoapp.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

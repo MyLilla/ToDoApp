@@ -1,10 +1,10 @@
-package com.javarush.todoapp.srvlets;
-
+package com.javarush.todoapp.servlets;
 
 import com.javarush.todoapp.dto.TaskDto;
 import com.javarush.todoapp.model.Task;
-import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "TaskServlet", value = "/task")
-public class TaskServlet extends HttpServlet {
+@WebServlet(name = "EditTaskServlet", value = "/editTask")
+public class EditTaskServlet extends HttpServlet {
 
+    private final Logger LOGGER = LogManager.getLogger(EditTaskServlet.class);
     private TaskService taskService;
 
     @Override
@@ -28,27 +28,20 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        LOGGER.info("url: /editTask, method: GET");
 
-        TaskDto taskDto = taskService.getTasksById(1L);
+        String taskForEditId = request.getParameter("id");
+        LOGGER.info("get id: {} for edition", taskForEditId);
 
-        // нужно прикрепить к ответу все задачи (юзер в сессии)
+        TaskDto taskDto = taskService.getTasksById(Long.parseLong(taskForEditId));
 
-        request.setAttribute("tasks", taskDto);
+        request.setAttribute("task", taskDto);
 
-        System.out.println(taskDto);
-
-        getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
+        getServletContext().getRequestDispatcher("/editTask.html").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // для юзера из сессии
-        // получить данные для задачи
-        // создать и сохранить задачу
-        // отправить на dashboard
-
-        System.out.println("сроботал пост в таск сервлете");
     }
 }

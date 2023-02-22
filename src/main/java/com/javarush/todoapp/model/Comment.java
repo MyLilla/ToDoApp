@@ -24,7 +24,7 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    @ManyToOne// у множества коммитов один юзер
+    @ManyToOne // у множества коммитов один юзер
     @JoinColumn(name = "user_id")
     private User userId;
 }

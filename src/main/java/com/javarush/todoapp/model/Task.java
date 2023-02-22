@@ -3,18 +3,21 @@ package com.javarush.todoapp.model;
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(schema = "todo", name = "task")
 public class Task {
@@ -39,9 +42,9 @@ public class Task {
     @Enumerated
     private Priority priority;
 
-    @OneToMany(fetch = FetchType.EAGER) // у одной задачи может быть много коммитов
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // у одной задачи может быть много коммитов
     @JoinColumn(name = "comment_id")
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>();
     @CreationTimestamp
     private LocalDateTime createDate;
     @UpdateTimestamp
@@ -50,5 +53,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
+
 
 }

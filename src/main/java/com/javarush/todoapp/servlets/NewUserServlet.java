@@ -1,7 +1,9 @@
-package com.javarush.todoapp.srvlets;
+package com.javarush.todoapp.servlets;
 
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -15,6 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "NewUserServlet", value = "/newUser")
 public class NewUserServlet extends HttpServlet {
 
+    private final Logger LOGGER = LogManager.getLogger(UserServlet.class);
     private UserService userService;
 
     @Override
@@ -27,12 +30,13 @@ public class NewUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
-        System.out.println("сработал GET  в новом юзере");
+        LOGGER.info("сработал GET  в новом юзере");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        LOGGER.info("url: /newUser, method: GET");
         // сделать dto
         String name = request.getParameter("name");
         String login = request.getParameter("login");
