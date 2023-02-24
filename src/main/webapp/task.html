@@ -15,25 +15,51 @@
     <div class="container"></div>
 </header>
 
-<div class="container text-center">
+<div class="container text-center col-md-7">
 
     <h1>Creating new task</h1>
     <form id="newTask" action="task" method="post">
 
-        Task title:<br>
-        <input type="text" name="title" id="title"><br>
-        Description:<br>
-        <input type="text" name="description" id="description">
-        Hours for task:<br>
-        <input type="text" name="hours" id="hours"><br>
-        Tegs:<br>
-        <input type="text" name="tegs" id="tegs">
-        Priority:<br>
-        <select name="priority" id="priority">
-            <option value="HIGH">high</option>
-            <option value="MEDIUM">medium</option>
-            <option value="LOW">low</option>
-        </select>
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Task title:
+            </span>
+            <input type="text" name="title" id="title" class="form-control">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                Description:
+            </span>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                Hours for task:
+            </span>
+            <input step="1" min="1" max="100" 
+                   type="number" name="hours" id="hours" class="form-control">
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                Tegs:
+            </span>
+            <input type="text" name="tegs" id="tegs" class="form-control">
+          </div>
+        
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                Priority:
+            </span>
+            <select name="priority" id="priority" class="form-control">
+                <option value="HIGH">high</option>
+                <option value="MEDIUM">medium</option>
+                <option value="LOW">low</option>
+            </select>
+          </div>
+
         <br>
         <input id="create_new_task" type="submit" value="Create">
     </form>

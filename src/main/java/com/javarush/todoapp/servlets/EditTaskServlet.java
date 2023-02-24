@@ -1,7 +1,9 @@
 package com.javarush.todoapp.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TaskDto;
 import com.javarush.todoapp.model.Task;
+import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,18 +32,51 @@ public class EditTaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /editTask, method: GET");
 
-        String taskForEditId = request.getParameter("id");
+        String taskForEditId = request.getParameter("taskForEditId");
+        request.getSession().setAttribute("taskForEditId", taskForEditId);
+
         LOGGER.info("get id: {} for edition", taskForEditId);
 
         TaskDto taskDto = taskService.getTasksById(Long.parseLong(taskForEditId));
-
-        request.setAttribute("task", taskDto);
+        LOGGER.info("get taskDto {} by id {}", taskDto, taskForEditId);
+        request.getSession().setAttribute("task", taskDto);
 
         getServletContext().getRequestDispatcher("/editTask.html").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("url: /editTask, method: PUT");
 
+        TaskDto taskDto = (TaskDto) request.getSession().getAttribute("task");
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        LOGGER.info("create object Mapper");
+
+        String tasksJson = objectMapper.writeValueAsString(taskDto);
+        LOGGER.info("from obj to String JSON: {}", tasksJson);
+
+        response.setContentType("application/json");
+        response.getWriter().write(tasksJson);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("url: /editTask, method: POST, changing task");
+
+        Long taskId = Long.parseLong((String) request.getSession().getAttribute("taskForEditId"));
+        LOGGER.info("task id for edit: {}", taskId);
+
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String hours = request.getParameter("hours");
+        String tegs = request.getParameter("tegs");
+        String priority = request.getParameter("priority");
+
+        taskService.updateTask(title, description, hours,
+                tegs, priority, taskId);
+
+        getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }
 }

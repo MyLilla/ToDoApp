@@ -3,7 +3,6 @@ package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +31,7 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /task, method: GET");
+        LOGGER.info("url: /task, method: GET, get task list");
 
         ObjectMapper objectMapper = new ObjectMapper();
         LOGGER.info("create object Mapper");
@@ -53,7 +52,7 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /task, method: POST");
+        LOGGER.info("url: /task, method: POST, creating new task");
 
         User user = (User) request.getSession().getAttribute("user");
 
@@ -81,13 +80,13 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: task, method: PUT");
+        LOGGER.info("url: task, method: PUT, get count tasks");
+
         User user = (User) request.getSession().getAttribute("user");
 
         Long count = taskService.getCountAllTasks(user);
         LOGGER.info("for User with id: {} count tasks: {}", user.getId(), count);
 
         response.getWriter().write(count.intValue());
-
     }
 }

@@ -28,15 +28,9 @@ public class NewUserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        LOGGER.info("сработал GET  в новом юзере");
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         LOGGER.info("url: /newUser, method: GET");
+
         // сделать dto
         String name = request.getParameter("name");
         String login = request.getParameter("login");

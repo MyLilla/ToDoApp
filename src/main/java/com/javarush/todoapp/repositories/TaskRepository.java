@@ -54,10 +54,10 @@ public class TaskRepository extends GeneralRepository {
         }
     }
 
-    public void saveNewTask(Task task) {
+    public void saveOrUpdate(Task task) {
         try (Session session = dbConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.persist(task);
+            session.merge(task);
             session.getTransaction().commit();
         }
     }

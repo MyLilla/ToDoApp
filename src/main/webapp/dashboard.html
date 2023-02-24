@@ -88,13 +88,12 @@
                     + "<img src='/img/delete.png'>"
                     + "</button>" + "</td>"
 
-                    + "<td><a href='/ToDoApp_war_exploded/editTask?id=" + task.id + "'>"
+                    + "<td><a href='/ToDoApp_war_exploded/editTask?taskForEditId=" + task.id + "'>"
                     + "<img src='/img/edit.png'>"
                     + "</a>" + "</td>"
 
                     + "</tr>"
                 ).appendTo("#table");
-                console.log(task.id)
             });
         });
     }

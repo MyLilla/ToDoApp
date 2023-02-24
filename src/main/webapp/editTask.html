@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body onload="showTask()">
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="container text-center col-md-7">
+
+    <h1>Edit task</h1>
+    <form id="editTask" action="editTask" method="post">
+
+        <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Task title:
+                </span>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Description:
+                </span>
+            <input type="text" name="description" id="description" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Hours for task:
+                </span>
+            <input step="1" min="1" max="100"
+                   type="number" name="hours" id="hours" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Tegs:
+                </span>
+            <input type="text" name="tegs" id="tegs" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Priority:
+                </span>
+            <select name="priority" id="priority" class="form-control">
+                <option value="HIGH">high</option>
+                <option value="MEDIUM">medium</option>
+                <option value="LOW">low</option>
+            </select>
+        </div>
+
+        <br>
+        <input id="edit_task" type="submit" value="Save">
+    </form>
+</div>
+
+<script>
+    function showTask() {
+        $.ajax({
+            url: "editTask",
+            async: false,
+            type: 'PUT',
+            dataType: 'json',
+            success: function (task) {
+                $("#title").attr('value', task.title);
+                $("#description").attr('value', task.description);
+                $("#hours").attr('hours', task.hours);
+                $("#tegs").attr('tegs', task.tegs);
+                $("#priority").attr('priority', task.priority);
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>
