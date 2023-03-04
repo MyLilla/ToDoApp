@@ -1,12 +1,18 @@
 package com.javarush.todoapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.javarush.todoapp.dto.TaskDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(schema = "todo", name = "tegs")
 public class Teg {
 
@@ -18,5 +24,12 @@ public class Teg {
 
     @Column(length = 10)
     private String color;
+
+    @JsonIgnore
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(schema = "todo", name = "task_teg",
+    inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
+    joinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"))
+    private Set<Task> tasks;
 
 }
