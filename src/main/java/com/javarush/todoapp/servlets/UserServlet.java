@@ -29,13 +29,13 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /user, method: POST");
+        LOGGER.info("url: /user, method: POST, sign un user");
 
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         User user = userService.getUserWithPassword(login, password);
-        LOGGER.debug("User {} was got with login: {} and password: {}", user, login, password);
+        LOGGER.debug("User {} was got with login: {}", user, login);
 
         request.getSession().setAttribute("user", user);
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

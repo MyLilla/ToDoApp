@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body onload="showTask()">
+<body onload="showTask(), showTegs()">
 
 <header>
     <div class="container"></div>
@@ -43,10 +43,29 @@
         </div>
 
         <div class="input-group mb-3">
-                <span class="input-group-text">
-                    Tegs:
-                </span>
-            <input type="text" name="tegs" id="tegs" class="form-control">
+            <span class="input-group-text">
+                Tegs:
+            </span>
+            <select name="tegs" id="tegs" class="form-control"></select>
+        </div>
+
+        <br>
+        <button type="button" class="btn btn-dark text-center"
+                onclick="document.location='/ToDoApp_war_exploded/createTeg.html'">
+            Create new teg
+        </button>
+
+        <br><br>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Status:
+            </span>
+            <select name="status" id="status" class="form-control">
+                <option value="CREATED">created</option>
+                <option value="PROGRESS">progress</option>
+                <option value="DONE">done</option>
+            </select>
         </div>
 
         <div class="input-group mb-3">
@@ -75,13 +94,24 @@
             success: function (task) {
                 $("#title").attr('value', task.title);
                 $("#description").attr('value', task.description);
-                $("#hours").attr('hours', task.hours);
-                $("#tegs").attr('tegs', task.tegs);
-                $("#priority").attr('priority', task.priority);
+                $("#hours").attr('value', task.hours);
+                $("#tegs").attr('value', task.tegs);
+                $("#status").attr('value', task.status);
+                $("#priority").attr('value', task.priority);
             }
         });
     }
 
+    function showTegs() {
+        let url = "teg"
+        $.get(url, function (response) {
+            $.each(response, function (i, teg) {
+                const tegs = document.getElementById('tegs');
+                tegs[i] = new Option(teg.title, teg.title);
+                console.log(tegs[i])
+            });
+        });
+    }
 </script>
 
 </body>

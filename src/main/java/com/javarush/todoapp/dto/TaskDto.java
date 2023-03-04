@@ -4,6 +4,7 @@ import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import com.javarush.todoapp.model.Comment;
 import com.javarush.todoapp.model.Teg;
+import com.javarush.todoapp.model.User;
 import lombok.Getter;
 import lombok.Setter;
 

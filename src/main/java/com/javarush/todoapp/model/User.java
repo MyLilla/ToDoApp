@@ -24,7 +24,11 @@ public class User {
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER) // у одного юзера много задач
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "user_id")
     private Set<Task> tasks;
+
+    @OneToMany (fetch = FetchType.EAGER)// у одного юзера несколько тегов
+    @JoinColumn(name = "user_id")
+    private Set<Teg> tegs;
 
 }

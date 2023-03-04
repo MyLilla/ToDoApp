@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
 
     <title>ToDoApplication</title>
-    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
+<body onload="show_tasks()">
 
 <header>
     <div class="container"></div>
 </header>
-
-<body onload="show_tasks()">
 
 <div class="text-center container">
     <button type="button" class="btn btn-dark text-center"
@@ -23,16 +23,16 @@
 </div>
 
 <section id="tasks">
-    <div class="text-center container">
+    <div class="container">
 
         <label for="countTask"> Count per page:</label>
         <select id="countTask" onchange="show_tasks()">
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
-            <option value="20">All</option>
+            <option value="100">All</option>
         </select>
-<br><br>
+        <br><br>
         <table id="table">
             <tr>
                 <th>Task</th>
@@ -55,6 +55,7 @@
             onclick="document.location='/ToDoApp_war_exploded/task.html'">
         Create new task
     </button>
+    <br><br>
 </div>
 
 <script>
@@ -73,23 +74,28 @@
         let url = "task";
         url = url.concat("?countTasks=").concat(countTasks);
 
-        $.get(url, function (task) {
-            $.each(task, function (i, task) {
+        $.get(url, function (response) {
+            $.each(response, function (i, task) {
                 $('<tr>').html("<td>"
                     + task.title + "</td><td>"
                     + task.description + "</td><td>"
                     + task.hours + "</td><td>"
-                    + task.status + "</td><td>"
-                    + task.tegs + "</td><td>"     // сделать перебор тегов
+                    + task.status + "</td><td>"     // сделать перебор тегов
+                    // + "<td id='i'>" +
+                    // $.each(task.tegs, function (i, tegs){
+                    //     $('#i').html(tegs.title)
+                    //     }) +
+                    + task.tegs.title
+                    + "</td><td>"
                     + task.priority + "</td><td>"
                     + new Date(task.createDate).toLocaleDateString() + "</td><td>"
 
                     + "<button id='buttonDelete' onclick='deleteTask(" + task.id + ")'>"
-                    + "<img src='/img/delete.png'>"
+                    + "<img src='/ToDoApp_war_exploded/img/delete.png'>"
                     + "</button>" + "</td>"
 
                     + "<td><a href='/ToDoApp_war_exploded/editTask?taskForEditId=" + task.id + "'>"
-                    + "<img src='/img/edit.png'>"
+                    + "<img src='/ToDoApp_war_exploded/img/edit.png'>"
                     + "</a>" + "</td>"
 
                     + "</tr>"

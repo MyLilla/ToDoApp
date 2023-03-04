@@ -3,8 +3,10 @@ package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TaskDto;
+import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
+import com.javarush.todoapp.services.TegService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,25 +18,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(name = "TaskServlet", value = "/task")
 public class TaskServlet extends HttpServlet {
 
     private final Logger LOGGER = LogManager.getLogger(TaskServlet.class);
     private TaskService taskService;
+    private TegService tegService;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         taskService = (TaskService) config.getServletContext().getAttribute("taskService");
+        tegService = (TegService) config.getServletContext().getAttribute("tegService");
+        objectMapper = new ObjectMapper();
+        LOGGER.info("create object Mapper");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /task, method: GET, get task list");
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        LOGGER.info("create object Mapper");
 
         User user = (User) request.getSession().getAttribute("user");
 
@@ -56,14 +61,20 @@ public class TaskServlet extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
 
+        String tegs = request.getParameter("tegs");
+        LOGGER.info("Get tegs: {}", tegs);
+
+        Set<Teg> addedTegs = tegService.getSetTegs(tegs, user);
+        // теги созданы и сохранены
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
-        String tegs = request.getParameter("tegs");
+        String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 
-        taskService.createTask(title, description, hours,
-                tegs, priority, user);
+        taskService.createTask(title, description, hours, addedTegs,
+                status, priority, user);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

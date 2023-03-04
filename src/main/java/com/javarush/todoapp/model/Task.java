@@ -5,7 +5,6 @@ import com.javarush.todoapp.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,8 +34,10 @@ public class Task {
     @Enumerated
     private Status status;
 
-    @OneToMany (fetch = FetchType.EAGER)// у одной задачи несколько тегов
-    @JoinColumn(name = "teg_id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(schema = "todo", name = "task_teg",
+            inverseJoinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
     private Set<Teg> tegs;
 
     @Enumerated
@@ -53,6 +54,5 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
-
 
 }

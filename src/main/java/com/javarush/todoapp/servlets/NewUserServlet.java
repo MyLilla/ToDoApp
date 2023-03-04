@@ -29,14 +29,14 @@ public class NewUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /newUser, method: GET");
+        LOGGER.info("url: /newUser, method: post, log in new user");
 
-        // сделать dto
         String name = request.getParameter("name");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         User user = userService.createUser(name, login, password);
+        LOGGER.info("Created new user: {}, login: {}", user, login);
         request.getSession().setAttribute("user", user);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

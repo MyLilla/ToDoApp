@@ -2,10 +2,12 @@ package com.javarush.todoapp.repositories;
 
 import com.javarush.todoapp.DbConfiguration;
 import com.javarush.todoapp.model.Task;
+import com.javarush.todoapp.model.Teg;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Set;
 
 public class TaskRepository extends GeneralRepository {
 
@@ -54,11 +56,12 @@ public class TaskRepository extends GeneralRepository {
         }
     }
 
-    public void saveOrUpdate(Task task) {
+    public Long saveOrUpdate(Task task) {
         try (Session session = dbConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.merge(task);
+            Task newTask = session.merge(task);
             session.getTransaction().commit();
+        return newTask.getId();
         }
     }
 
@@ -68,6 +71,18 @@ public class TaskRepository extends GeneralRepository {
             Task task = session.find(Task.class, id);
             session.remove(task);
             session.getTransaction().commit();
+        }
+    }
+
+    public void joinTegsInTask(Long task_id, Set<Teg> tegs) {
+        try (Session session = dbConfiguration.getSessionFactory().openSession()) {
+            Task taskForAdding = session.find(Task.class, task_id);
+            for (Teg t : tegs) {
+                Teg teg = session.find(Teg.class, t.getId());
+               taskForAdding.getTegs().add(teg);
+                System.out.println(teg);
+            }
+            session.update(taskForAdding);
         }
     }
 }

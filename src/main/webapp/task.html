@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body onload="showTegs()">
 
 <header>
     <div class="container"></div>
@@ -25,31 +25,48 @@
                 Task title:
             </span>
             <input type="text" name="title" id="title" class="form-control">
-          </div>
+        </div>
 
-          <div class="input-group mb-3">
+        <div class="input-group mb-3">
             <span class="input-group-text">
                 Description:
             </span>
             <input type="text" name="description" id="description" class="form-control">
-          </div>
+        </div>
 
-          <div class="input-group mb-3">
+        <div class="input-group mb-3">
             <span class="input-group-text">
                 Hours for task:
             </span>
-            <input step="1" min="1" max="100" 
+            <input step="1" min="1" max="100"
                    type="number" name="hours" id="hours" class="form-control">
-          </div>
+        </div>
 
-          <div class="input-group mb-3">
+        <div class="input-group mb-3">
             <span class="input-group-text">
                 Tegs:
             </span>
-            <input type="text" name="tegs" id="tegs" class="form-control">
-          </div>
-        
-          <div class="input-group mb-3">
+            <select name="tegs" id="tegs" class="form-control"></select>
+        </div>
+        <br>
+        <button type="button" class="btn btn-dark text-center"
+                onclick="document.location='/ToDoApp_war_exploded/createTeg.html'">
+            Create new teg
+        </button>
+
+        <br><br>
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Status:
+            </span>
+            <select name="status" id="status" class="form-control">
+                <option value="CREATED">created</option>
+                <option value="PROGRESS">progress</option>
+                <option value="DONE">done</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
             <span class="input-group-text">
                 Priority:
             </span>
@@ -58,12 +75,25 @@
                 <option value="MEDIUM">medium</option>
                 <option value="LOW">low</option>
             </select>
-          </div>
+        </div>
 
         <br>
         <input id="create_new_task" type="submit" value="Create">
     </form>
 </div>
+
+<script>
+    function showTegs() {
+        let url = "teg"
+        $.get(url, function (response) {
+                $.each(response, function (i, teg) {
+                    const tegs = document.getElementById('tegs');
+                    tegs[i] = new Option(teg.title, teg.title);
+                    console.log(tegs[i])
+                });
+        });
+    }
+</script>
 
 </body>
 </html>

@@ -6,7 +6,6 @@
     <title>ToDoApplication</title>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -15,59 +14,47 @@
     <div class="container"></div>
 </header>
 
-<!--start-->
-<section id="authorization">
-    <div class="row text-center">
-        <div class="rol-12">
-            <h2 class="container text-center colorText">
-                Войти или зарегистрироваться
-            </h2>
-        </div>
-    </div>
-
-    <div class="row text-center">
-        <div class="rol-6">
-            <br/>
-            <button class="btn btn-primary" type="button" onclick="show_enter();"> ВХОД</button>
-            <button class="btn btn-primary" type="button" onclick="show_regForm();"> РЕГИСТРАЦИЯ</button>
-        </div>
+<div class="row text-center">
+    <div class="rol-6">
         <br/>
-
-        <!--enter-->
-        <div id="hide_enter" style="display:none;">
-            <h1> Форма для входа</h1>
-
-            <form id="enter" action="user" method="post">
-                Login:<br>
-                <input type="text" name="login" id="login"><br>
-                Password:<br>
-                <input type="text" name="password" id="password">
-                <br>
-                <br>
-                <input id="enter_with_password" type="submit" value="Go to task">
-            </form>
-        </div>
-
-        <!--registration-->
-        <div id="hide_regForm" style="display:none;">
-            <h1> Форма для регистрации</h1>
-
-            <form id="registration" action="newUser" method="post">
-                User Name:<br>
-                <input type="text" name="name" id="name"><br>
-                Login:<br>
-                <input type="text" name="login" id="newLogin">
-                <br>
-                Password:<br>
-                <input type="text" name="password" id="newPassword">
-                <br>
-                <br>
-                <input id="send" type="submit" value="Зарегистрироваться">
-                <input id="clear" type="reset" value="Отчистить форму">
-            </form>
-        </div>
-
+        <button class="btn btn-primary" type="button" onclick="show_enter();"> sign up</button>
+        <button class="btn btn-primary" type="button" onclick="show_regForm();"> log in</button>
     </div>
+    <br/>
+
+    <!--sign up-->
+    <div id="hide_enter" style="display:none;">
+
+        <form id="enter" action="user" method="post">
+            Login:<br>
+            <input type="text" name="login" id="login"><br>
+            Password:<br>
+            <input type="text" name="password" id="password">
+            <br>
+            <br>
+            <input id="enter_with_password" type="submit" value="Go to task">
+        </form>
+    </div>
+
+    <!--log in-->
+    <div id="hide_regForm" style="display:none;">
+
+        <form id="registration" action="newUser" method="post">
+            User Name:<br>
+            <input type="text" name="name" id="name"><br>
+            Login:<br>
+            <input type="text" name="login" id="newLogin">
+            <br>
+            Password:<br>
+            <input type="text" name="password" id="newPassword">
+            <br>
+            <br>
+            <input id="send" type="submit" value="Зарегистрироваться">
+            <input id="clear" type="reset" value="Отчистить форму">
+        </form>
+    </div>
+
+</div>
 </section>
 
 <script>

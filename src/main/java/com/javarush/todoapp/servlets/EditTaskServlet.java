@@ -49,7 +49,7 @@ public class EditTaskServlet extends HttpServlet {
         LOGGER.info("url: /editTask, method: PUT");
 
         TaskDto taskDto = (TaskDto) request.getSession().getAttribute("task");
-
+        LOGGER.info("TaskDto: {}", taskDto);
 
         ObjectMapper objectMapper = new ObjectMapper();
         LOGGER.info("create object Mapper");
@@ -72,10 +72,11 @@ public class EditTaskServlet extends HttpServlet {
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
         String tegs = request.getParameter("tegs");
+        String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 
         taskService.updateTask(title, description, hours,
-                tegs, priority, taskId);
+                status, priority, taskId);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }
