@@ -3,13 +3,14 @@ package com.javarush.todoapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(schema = "todo", name = "user")
+@Table(schema = "todo", name = "users")
 public class User {
 
     @Id
@@ -18,17 +19,17 @@ public class User {
 
     @Column(name = "user_name", nullable = false, length = 15)
     private String userName;
-    @Column(unique = true, nullable = false, length = 20)// уникальное поле
+    @Column(unique = true, nullable = false, length = 20)
     private String login;
-    @Column
+    @Column(nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER) // у одного юзера много задач
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Set<Task> tasks;
+    private Set<Task> tasks = new HashSet<>();
 
-    @OneToMany (fetch = FetchType.EAGER)// у одного юзера несколько тегов
+    @OneToMany (fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Set<Teg> tegs;
+    private Set<Teg> tegs = new HashSet<>();
 
 }

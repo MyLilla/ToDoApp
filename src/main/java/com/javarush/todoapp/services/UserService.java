@@ -6,6 +6,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static org.apache.commons.lang3.ObjectUtils.anyNull;
+
 public class UserService {
 
     private final Logger LOGGER = LogManager.getLogger(UserService.class);
@@ -30,6 +32,15 @@ public class UserService {
     }
 
     public User getUserWithPassword(String login, String password) {
+
+        if (login.isBlank() || password.isBlank()) {
+            LOGGER.debug("Login: {} or password: {} is empty", login, password);
+            return null;
+        }
+        if (anyNull(login, password)) {
+            LOGGER.debug("Login: {} or password: {} is null", login, password);
+            return null;
+        }
         String hashPassword = DigestUtils.md5Hex(password);
         return userRepository.getWithPassword(login, hashPassword);
     }

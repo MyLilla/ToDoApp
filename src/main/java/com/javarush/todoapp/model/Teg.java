@@ -25,6 +25,10 @@ public class Teg {
     @Column(length = 10)
     private String color;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
+
     @JsonIgnore
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(schema = "todo", name = "task_teg",

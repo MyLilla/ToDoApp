@@ -29,6 +29,7 @@ public class DbConfiguration {
 
         properties.put(Environment.HBM2DDL_AUTO, "update");
 
+
         LOGGER.info("Added properties for data base: {}", properties);
 
 

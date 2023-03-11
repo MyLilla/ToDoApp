@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.util.Objects.isNull;
+
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
 
@@ -36,6 +38,9 @@ public class UserServlet extends HttpServlet {
 
         User user = userService.getUserWithPassword(login, password);
         LOGGER.debug("User {} was got with login: {}", user, login);
+        if (isNull(user)){
+            getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+        }
 
         request.getSession().setAttribute("user", user);
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

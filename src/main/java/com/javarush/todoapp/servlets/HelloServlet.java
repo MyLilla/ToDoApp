@@ -1,5 +1,7 @@
 package com.javarush.todoapp.servlets;
 
+import com.javarush.todoapp.LiquibaseConnect;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,9 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//        LiquibaseConnect liquibaseConnect = new LiquibaseConnect();
+//        liquibaseConnect.loudDB();
 
         response.sendRedirect("index.html");
     }

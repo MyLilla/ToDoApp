@@ -6,6 +6,15 @@ import com.javarush.todoapp.repositories.UserRepository;
 import com.javarush.todoapp.services.TaskService;
 import com.javarush.todoapp.services.TegService;
 import com.javarush.todoapp.services.UserService;
+import liquibase.Contexts;
+import liquibase.LabelExpression;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
+import liquibase.exception.LiquibaseException;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -19,7 +28,11 @@ public class AppContextListener implements ServletContextListener {
 
         ServletContext context = sce.getServletContext();
 
+//        LiquibaseConnect liquibaseConnect = new LiquibaseConnect();
+//        liquibaseConnect.loudDB();
+
         DbConfiguration dbConfiguration = new DbConfiguration();
+
         UserRepository userRepository = new UserRepository(dbConfiguration);
         TaskRepository taskRepository = new TaskRepository(dbConfiguration);
         TegRepository tegRepository = new TegRepository(dbConfiguration);
