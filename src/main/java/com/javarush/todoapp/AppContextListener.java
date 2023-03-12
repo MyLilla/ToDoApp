@@ -6,15 +6,8 @@ import com.javarush.todoapp.repositories.UserRepository;
 import com.javarush.todoapp.services.TaskService;
 import com.javarush.todoapp.services.TegService;
 import com.javarush.todoapp.services.UserService;
-import liquibase.Contexts;
-import liquibase.LabelExpression;
-import liquibase.Liquibase;
-import liquibase.database.Database;
-import liquibase.database.DatabaseFactory;
-import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.DatabaseException;
-import liquibase.exception.LiquibaseException;
-import liquibase.resource.ClassLoaderResourceAccessor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -28,14 +21,15 @@ public class AppContextListener implements ServletContextListener {
 
         ServletContext context = sce.getServletContext();
 
-//        LiquibaseConnect liquibaseConnect = new LiquibaseConnect();
-//        liquibaseConnect.loudDB();
+        LiquibaseConnect liquibaseConnect = new LiquibaseConnect();
+        liquibaseConnect.loudDB();
 
         DbConfiguration dbConfiguration = new DbConfiguration();
+        SessionFactory sessionFactory = dbConfiguration.getSessionFactory();
 
-        UserRepository userRepository = new UserRepository(dbConfiguration);
-        TaskRepository taskRepository = new TaskRepository(dbConfiguration);
-        TegRepository tegRepository = new TegRepository(dbConfiguration);
+        UserRepository userRepository = new UserRepository(sessionFactory);
+        TaskRepository taskRepository = new TaskRepository(sessionFactory);
+        TegRepository tegRepository = new TegRepository(sessionFactory);
 
         UserService userService = new UserService(userRepository);
         TaskService taskService = new TaskService(taskRepository);

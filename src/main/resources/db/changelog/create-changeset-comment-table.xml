@@ -5,28 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create_task_table" author="Lilla">
+    <changeSet id="create_comment_table" author="Lilla">
 
-        <createTable tableName="tasks" schemaName="todo">
+        <createTable tableName="comments" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="title" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="description" type="text">
-            </column>
-
-            <column name="hours" type="smallint" defaultValue="0">
-            </column>
-
-            <column name="status" type="smallint">
-            </column>
-
-            <column name="priority" type="smallint">
             </column>
 
             <column name="createDate" type="TIMESTAMP">
@@ -43,15 +30,15 @@
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="tasks"
+        <addForeignKeyConstraint baseTableName="comments"
                                  baseTableSchemaName="todo"
                                  baseColumnNames="user_id"
-                                 constraintName="FK_TASK_USER_ID"
+                                 constraintName="FK_COMMENT_USER_ID"
                                  referencedTableName="users"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
 
-        <createSequence sequenceName="SQ_TASKS_ID" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="SQ_COMMENTS_ID" incrementBy="1" startValue="1"/>
     </changeSet>
 </databaseChangeLog>

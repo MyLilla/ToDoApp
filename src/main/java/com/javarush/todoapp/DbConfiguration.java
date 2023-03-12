@@ -27,7 +27,7 @@ public class DbConfiguration {
         properties.put(Environment.USER, "postgres");
         properties.put(Environment.PASS, "1234");
 
-        properties.put(Environment.HBM2DDL_AUTO, "update");
+        properties.put(Environment.HBM2DDL_AUTO, "validate");
 
 
         LOGGER.info("Added properties for data base: {}", properties);
@@ -35,9 +35,9 @@ public class DbConfiguration {
 
         sessionFactory = new Configuration()
                 .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Comment.class)
                 .addAnnotatedClass(Task.class)
                 .addAnnotatedClass(Teg.class)
+                .addAnnotatedClass(Comment.class)
                 .setProperties(properties)
                 .buildSessionFactory();
 

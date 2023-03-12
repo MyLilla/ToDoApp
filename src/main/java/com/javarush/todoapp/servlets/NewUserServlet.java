@@ -36,7 +36,8 @@ public class NewUserServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userService.createUser(name, login, password);
-        LOGGER.info("Created new user: {}, login: {}", user, login);
+        LOGGER.info("Created new user: {}, name: {}, login: {}",
+                user, user.getUserName(), user.getLogin());
         request.getSession().setAttribute("user", user);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

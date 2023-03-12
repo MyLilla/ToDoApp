@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(schema = "todo", name = "comment")
+@Table(schema = "todo", name = "comments")
 public class Comment {
 
     @Id
@@ -24,7 +24,7 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    @ManyToOne // у множества коммитов один юзер
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
 }

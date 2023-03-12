@@ -33,18 +33,13 @@ public class Task {
     @Enumerated
     private Status status;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(schema = "todo", name = "task_teg",
-            inverseJoinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"),
-            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
-    private Set<Teg> tegs;
+    @OneToMany (fetch = FetchType.EAGER)
+    @JoinColumn(name = "task_id")
+    private Set<Teg> tegs = new HashSet<>();
 
     @Enumerated
     private Priority priority;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "comment_id")
-    private Set<Comment> comments = new HashSet<>();
     @CreationTimestamp
     private LocalDateTime createDate;
     @UpdateTimestamp

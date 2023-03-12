@@ -23,13 +23,25 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="task_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <addForeignKeyConstraint baseTableName="tegs"
                                  baseTableSchemaName="todo"
                                  baseColumnNames="user_id"
-                                 constraintName="FK_TASKS_USER_ID"
+                                 constraintName="FK_TEG_USER_ID"
                                  referencedTableName="users"
+                                 referencedTableSchemaName="todo"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tegs"
+                                 baseTableSchemaName="todo"
+                                 baseColumnNames="task_id"
+                                 constraintName="FK_TEG_TASK_ID"
+                                 referencedTableName="tasks"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 

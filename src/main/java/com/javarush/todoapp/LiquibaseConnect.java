@@ -11,7 +11,6 @@ import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.ResourceAccessor;
-import org.hibernate.cfg.Environment;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,7 +24,7 @@ public class LiquibaseConnect {
         ResourceAccessor resourceAccessor = new ClassLoaderResourceAccessor(getClass().getClassLoader());
 
         try (HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-            Connection connection = dataSource.getConnection()){
+             Connection connection = dataSource.getConnection()) {
 
             JdbcConnection jdbcConnection = new JdbcConnection(connection);
             Database db = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(jdbcConnection);
@@ -39,7 +38,7 @@ public class LiquibaseConnect {
         }
     }
 
-    private Properties readProperties () {
+    private Properties readProperties() {
         Properties properties = new Properties();
         properties.put("driverClassName", "com.p6spy.engine.spy.P6SpyDriver");
         properties.put("jdbcUrl", "jdbc:p6spy:postgresql://localhost:5432/postgres");

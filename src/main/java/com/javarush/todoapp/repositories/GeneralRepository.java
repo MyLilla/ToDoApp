@@ -1,12 +1,13 @@
 package com.javarush.todoapp.repositories;
 
-import com.javarush.todoapp.DbConfiguration;
+
+import org.hibernate.SessionFactory;
 
 public abstract class GeneralRepository<T> {
 
-    public final DbConfiguration dbConfiguration;
+    public final SessionFactory sessionFactory;
 
-    public GeneralRepository(DbConfiguration dbConfiguration) {
-        this.dbConfiguration = dbConfiguration;
+    public GeneralRepository(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

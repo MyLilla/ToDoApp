@@ -32,4 +32,8 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<Teg> tegs = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private Set<Comment> comments = new HashSet<>();
+
 }
