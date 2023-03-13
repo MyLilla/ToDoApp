@@ -23,16 +23,17 @@ public class User {
     private String login;
     @Column(nullable = false)
     private String password;
+    // make like char[]
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<Task> tasks = new HashSet<>();
 
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<Teg> tegs = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<Comment> comments = new HashSet<>();
 

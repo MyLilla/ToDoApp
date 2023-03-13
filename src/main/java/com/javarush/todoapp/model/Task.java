@@ -33,7 +33,7 @@ public class Task {
     @Enumerated
     private Status status;
 
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "task_id")
     private Set<Teg> tegs = new HashSet<>();
 

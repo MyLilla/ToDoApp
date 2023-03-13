@@ -1,6 +1,7 @@
 package com.javarush.todoapp.services;
 
 import com.javarush.todoapp.dto.TaskDto;
+import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import com.javarush.todoapp.mappers.TaskMapper;
@@ -8,6 +9,8 @@ import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.TaskRepository;
+import com.javarush.todoapp.repositories.UserRepository;
+import com.javarush.todoapp.repositories.hibernateImpl.TaskHibernateRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,18 +22,20 @@ public class TaskService {
 
     private final Logger LOGGER = LogManager.getLogger(TaskService.class);
 
-    TaskRepository taskRepository;
-    TaskMapper taskMapper = TaskMapper.INSTANCE;
+    private TaskRepository taskRepository;
+    private UserRepository userRepository;
+    private final TaskMapper taskMapper = TaskMapper.INSTANCE;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
         LOGGER.info("Created TaskService");
     }
 
-    public List<TaskDto> getAllTasks(User user, String countTasks) {
+    public List<TaskDto> getAllTasks(Long userId, String countTasks) {
 
         Integer size = Integer.parseInt(countTasks);
-        List<Task> taskList = taskRepository.getAllWithLimit(user.getId(), size);
+        List<Task> taskList = taskRepository.getAllWithLimit(userId, size);
         List<TaskDto> taskDtoList = new ArrayList<>();
 
         for (Task task : taskList) {
@@ -55,13 +60,15 @@ public class TaskService {
     }
 
     public void createTask(String title, String description, String hours, Set<Teg> tegs,
-                           String status, String priority, User user) {
+                           String status, String priority, Long userId) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
         task.setHours(Short.parseShort(hours));
         task.setStatus(Status.valueOf(status));
         task.setPriority(Priority.valueOf(priority));
+
+        User user = userRepository.getById(userId);
         task.setUserId(user);
 
         Long task_id = taskRepository.saveOrUpdate(task);

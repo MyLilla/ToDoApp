@@ -2,6 +2,7 @@ package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TegDto;
+import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
 import com.javarush.todoapp.services.TegService;
@@ -42,9 +43,9 @@ public class TegServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /teg, method: GET, get all user's tegs");
 
-        User user = (User) request.getSession().getAttribute("user");
+        Long userId = (Long) request.getSession().getAttribute("userId");
 
-        List<TegDto> tegDtoList = tegService.getAllUsersTegs(user);
+        List<TegDto> tegDtoList = tegService.getAllUsersTegs(userId);
         LOGGER.info("tegDtoList was get from db {}", tegDtoList);
 
         String tegsJson = objectMapper.writeValueAsString(tegDtoList);
@@ -58,16 +59,15 @@ public class TegServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /teg, method: POST, creating new Teg");
 
-        User user = (User) request.getSession().getAttribute("user");
+        Long userId = (Long) request.getSession().getAttribute("userId");
 
         String teg = request.getParameter("teg");
         String color = request.getParameter("color");
-        LOGGER.info("Get teg: {} and color: {} for", teg, color);
+        LOGGER.info("Get teg: {} and color: {}", teg, color);
 
-        tegService.createTeg(teg, color, user);
+        tegService.createTeg(teg, color, userId);
 
-        userService.updateUser(user);
-        request.getSession().setAttribute("user", user);
+        userService.updateUser(userId);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

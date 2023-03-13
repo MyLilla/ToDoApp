@@ -1,5 +1,6 @@
 package com.javarush.todoapp.servlets;
 
+import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +39,7 @@ public class NewUserServlet extends HttpServlet {
         User user = userService.createUser(name, login, password);
         LOGGER.info("Created new user: {}, name: {}, login: {}",
                 user, user.getUserName(), user.getLogin());
-        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("userId", user.getId());
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

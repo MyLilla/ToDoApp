@@ -3,6 +3,7 @@ package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TaskDto;
+import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
@@ -41,10 +42,10 @@ public class TaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /task, method: GET, get task list");
 
-        User user = (User) request.getSession().getAttribute("user");
+        Long userId = (Long) request.getSession().getAttribute("userId");
 
         String countTasks = request.getParameter("countTasks");
-        List<TaskDto> taskList = taskService.getAllTasks(user, countTasks);
+        List<TaskDto> taskList = taskService.getAllTasks(userId, countTasks);
         LOGGER.info("TasksList was get from db {}", taskList);
 
         String tasksJson = objectMapper.writeValueAsString(taskList);
@@ -59,13 +60,12 @@ public class TaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("url: /task, method: POST, creating new task");
 
-        User user = (User) request.getSession().getAttribute("user");
+        Long userId = (Long) request.getSession().getAttribute("userId");
 
         String tegs = request.getParameter("tegs");
         LOGGER.info("Get tegs: {}", tegs);
 
-        Set<Teg> addedTegs = tegService.getSetTegs(tegs, user);
-        // теги созданы и сохранены
+        Set<Teg> addedTegs = tegService.getSetTegs(tegs, userId);
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -74,7 +74,7 @@ public class TaskServlet extends HttpServlet {
         String priority = request.getParameter("priority");
 
         taskService.createTask(title, description, hours, addedTegs,
-                status, priority, user);
+                status, priority, userId);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

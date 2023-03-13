@@ -1,7 +1,10 @@
 package com.javarush.todoapp.services;
 
+import com.javarush.todoapp.dto.UserDto;
+import com.javarush.todoapp.mappers.UserMapper;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.UserRepository;
+import com.javarush.todoapp.repositories.hibernateImpl.UserHibernateRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +14,8 @@ import static org.apache.commons.lang3.ObjectUtils.anyNull;
 public class UserService {
 
     private final Logger LOGGER = LogManager.getLogger(UserService.class);
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private final UserMapper userMapper = UserMapper.INSTANCE;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -28,24 +32,24 @@ public class UserService {
 
         LOGGER.info("Created new user: {}", user);
         userRepository.saveUser(user);
+
         return user;
     }
 
     public User getUserWithPassword(String login, String password) {
 
-        if (login.isBlank() || password.isBlank()) {
-            LOGGER.debug("Login: {} or password: {} is empty", login, password);
-            return null;
-        }
         if (anyNull(login, password)) {
             LOGGER.debug("Login: {} or password: {} is null", login, password);
             return null;
         }
         String hashPassword = DigestUtils.md5Hex(password);
-        return userRepository.getWithPassword(login, hashPassword);
+        User user = userRepository.getWithPassword(login, hashPassword);
+        return user;
     }
 
-    public void updateUser(User user) {
+    public void updateUser(Long userId) {
+
+        User user = userRepository.getById(userId);
         userRepository.saveUser(user);
     }
 }
