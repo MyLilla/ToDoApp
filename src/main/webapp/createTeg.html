@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="text-center container">
+
+    <form id="createTeg" action="teg" method="post">
+
+    <label for="teg">Teg name: </label>
+    <input type="text" id="teg" name="teg">
+    <br><br>
+
+    <label for="color">Select Color: </label>
+    <input type="color" id="color" name="color"
+           value="#f6b73c">
+    <br><br>
+    <input id="saveTeg" type="submit" value="Save">
+
+    </form>
+</div>
+
+</body>
+</html>
