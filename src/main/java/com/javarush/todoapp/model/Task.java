@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "todo", name = "tasks")
+@Table(schema = "todo", name = "task")
 public class Task {
 
     @Id
@@ -33,7 +33,7 @@ public class Task {
     @Enumerated
     private Status status;
 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
     private Set<Teg> tegs = new HashSet<>();
 
@@ -41,8 +41,10 @@ public class Task {
     private Priority priority;
 
     @CreationTimestamp
+    @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
     @UpdateTimestamp
+    @Column(name = "update_date")
     private LocalDateTime updateDate;
 
     @ManyToOne

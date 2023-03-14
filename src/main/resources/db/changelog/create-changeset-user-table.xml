@@ -7,7 +7,7 @@
 
     <changeSet id="create_user_table" author="Lilla">
 
-        <createTable tableName="users" schemaName="todo">
+        <createTable tableName="user" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>

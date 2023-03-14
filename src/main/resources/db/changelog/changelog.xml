@@ -8,5 +8,5 @@
     <include file="create-changeset-task-table.xml" relativeToChangelogFile="true"/>
     <include file="create-changeset-teg-table.xml" relativeToChangelogFile="true"/>
     <include file="create-changeset-comment-table.xml" relativeToChangelogFile="true"/>
-<!--    <include file="add-test-dates.xml" relativeToChangelogFile="true"/>-->
+    <include file="add-test-dates.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

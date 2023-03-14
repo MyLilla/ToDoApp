@@ -1,6 +1,5 @@
 package com.javarush.todoapp.servlets;
 
-import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -38,10 +37,11 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userService.getUserWithPassword(login, password);
-        LOGGER.debug("User {} was got with login: {}", user, login);
-        if (isNull(user)){
-            getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+        if (user == null) {
+            response.sendRedirect("index.html?error=You added incorrect information, Try again");
+            return;
         }
+        LOGGER.debug("User {} was got with login: {}", user, login);
 
         request.getSession().setAttribute("userId", user.getId());
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

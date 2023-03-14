@@ -7,7 +7,7 @@
 
     <changeSet id="create_task_table" author="Lilla">
 
-        <createTable tableName="tasks" schemaName="todo">
+        <createTable tableName="task" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -29,12 +29,11 @@
             <column name="priority" type="smallint">
             </column>
 
-            <column name="createDate" type="TIMESTAMP">
+            <column name="create_date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updateDate" type="TIMESTAMP">
-                <constraints nullable="false"/>
+            <column name="update_date" type="TIMESTAMP">
             </column>
 
             <column name="user_id" type="bigint">
@@ -43,11 +42,11 @@
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="tasks"
+        <addForeignKeyConstraint baseTableName="task"
                                  baseTableSchemaName="todo"
                                  baseColumnNames="user_id"
                                  constraintName="FK_TASK_USER_ID"
-                                 referencedTableName="users"
+                                 referencedTableName="user"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 

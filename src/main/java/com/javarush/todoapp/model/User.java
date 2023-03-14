@@ -10,7 +10,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
-@Table(schema = "todo", name = "users")
+@Table(schema = "todo", name = "user")
 public class User {
 
     @Id

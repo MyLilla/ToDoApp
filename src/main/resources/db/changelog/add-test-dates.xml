@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="add_test_dates" author="Lilla">
+
+        <insert tableName="user" schemaName="todo">
+            <column name="id" value="1"/>
+            <column name="user_name" value="Olga"/>
+            <column name="login" value="Olga"/>
+            <column name="password" value="81c6dcadcde6f514d20b5ff115b74ba9"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "todo", name = "tegs")
+@Table(schema = "todo", name = "teg")
 public class Teg {
 
     @Id

@@ -4,12 +4,13 @@ import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.mappers.UserMapper;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.UserRepository;
-import com.javarush.todoapp.repositories.hibernateImpl.UserHibernateRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 import static org.apache.commons.lang3.ObjectUtils.anyNull;
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
 public class UserService {
 
@@ -23,8 +24,18 @@ public class UserService {
     }
 
     public User createUser(String name, String login, String password) {
-        User user = new User();
 
+        if(anyNull(name, login, password)) {
+            LOGGER.debug("One of attribute is null. name: {}, login: {}, password: {}",
+                    name, login, password);
+            return null;
+        }
+        if(name.isEmpty() || login.isEmpty() || password.isEmpty()) {
+            LOGGER.debug("One of attribute is empty. name: '{}', login: '{}', password: '{}'",
+                    name, login, password);
+            return null;
+        }
+        User user = new User();
         user.setUserName(name);
         user.setLogin(login);
         String hashPassword = DigestUtils.md5Hex(password);
@@ -38,10 +49,17 @@ public class UserService {
 
     public User getUserWithPassword(String login, String password) {
 
-        if (anyNull(login, password)) {
-            LOGGER.debug("Login: {} or password: {} is null", login, password);
+        if(anyNull(login, password)) {
+            LOGGER.debug("One of attribute is null. login: {}, password: {}",
+                    login, password);
             return null;
         }
+        if(login.isEmpty() || password.isEmpty()) {
+            LOGGER.debug("One of attribute is empty. login: '{}', password: '{}'",
+                   login, password);
+            return null;
+        }
+
         String hashPassword = DigestUtils.md5Hex(password);
         User user = userRepository.getWithPassword(login, hashPassword);
         return user;

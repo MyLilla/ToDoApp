@@ -54,6 +54,12 @@
         </form>
     </div>
 
+    <br><br>
+    <h1 id="errorElement">
+
+    </h1>
+
+
 </div>
 </section>
 
@@ -67,6 +73,14 @@
         document.getElementById("hide_regForm").style.display = 'block';
         document.getElementById("hide_enter").style.display = 'none';
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+        const element = document.getElementById("errorElement")
+        element.innerHTML = error;
+    }
+
 </script>
 
 </body>

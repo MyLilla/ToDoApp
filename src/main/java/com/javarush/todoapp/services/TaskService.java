@@ -1,7 +1,6 @@
 package com.javarush.todoapp.services;
 
 import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import com.javarush.todoapp.mappers.TaskMapper;
@@ -10,7 +9,6 @@ import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.TaskRepository;
 import com.javarush.todoapp.repositories.UserRepository;
-import com.javarush.todoapp.repositories.hibernateImpl.TaskHibernateRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,6 +34,7 @@ public class TaskService {
 
         Integer size = Integer.parseInt(countTasks);
         List<Task> taskList = taskRepository.getAllWithLimit(userId, size);
+        LOGGER.info("Got task list: {}", taskList);
         List<TaskDto> taskDtoList = new ArrayList<>();
 
         for (Task task : taskList) {
@@ -71,9 +70,9 @@ public class TaskService {
         User user = userRepository.getById(userId);
         task.setUserId(user);
 
-        Long task_id = taskRepository.saveOrUpdate(task);
-        taskRepository.joinTegsInTask(task_id, tegs);
-        LOGGER.info("joinTegs: {} InTask: {}", tegs, task_id);
+        Long taskId = taskRepository.saveOrUpdate(task);
+        taskRepository.joinTegsInTask(taskId, tegs);
+        LOGGER.info("joinTegs: {} InTask: {}", tegs, taskId);
     }
 
     public void deleteTask(String id) {

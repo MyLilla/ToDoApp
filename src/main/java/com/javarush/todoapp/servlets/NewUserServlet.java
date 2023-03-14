@@ -1,6 +1,5 @@
 package com.javarush.todoapp.servlets;
 
-import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "NewUserServlet", value = "/newUser")
 public class NewUserServlet extends HttpServlet {
 
-    private final Logger LOGGER = LogManager.getLogger(UserServlet.class);
+    private final Logger LOGGER = LogManager.getLogger(NewUserServlet.class);
     private UserService userService;
 
     @Override
@@ -37,8 +36,13 @@ public class NewUserServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userService.createUser(name, login, password);
+        if (user == null) {
+            response.sendRedirect("index.html?error=You added incorrect information, Try again");
+            return;
+        }
         LOGGER.info("Created new user: {}, name: {}, login: {}",
                 user, user.getUserName(), user.getLogin());
+
         request.getSession().setAttribute("userId", user.getId());
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

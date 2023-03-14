@@ -3,7 +3,6 @@ package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.dto.UserDto;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
@@ -53,7 +52,6 @@ public class TaskServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(tasksJson);
-
     }
 
     @Override
