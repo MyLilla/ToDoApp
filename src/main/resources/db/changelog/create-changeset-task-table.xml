@@ -34,10 +34,10 @@
             </column>
 
             <column name="update_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
             </column>
 
             <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
             </column>
 
         </createTable>
@@ -50,6 +50,6 @@
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
-        <createSequence sequenceName="SQ_TASKS_ID" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="task_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
     </changeSet>
 </databaseChangeLog>

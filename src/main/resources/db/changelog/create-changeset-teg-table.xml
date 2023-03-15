@@ -46,7 +46,7 @@
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
-        <createSequence sequenceName="SQ_TAGS_ID" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="teg_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
 
     </changeSet>
 </databaseChangeLog>

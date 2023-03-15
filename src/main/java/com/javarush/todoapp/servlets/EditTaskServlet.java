@@ -46,7 +46,7 @@ public class EditTaskServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /editTask, method: PUT");
+        LOGGER.info("url: /editTask, method: PUT, show task for edit");
 
         TaskDto taskDto = (TaskDto) request.getSession().getAttribute("task");
         LOGGER.info("TaskDto: {}", taskDto);

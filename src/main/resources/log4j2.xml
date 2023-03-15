@@ -28,6 +28,18 @@
         </RollingFile>
 
         <!--change local path here-->
+        <RollingFile name="Repository" fileName="/toDoLogs/repo.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}.log.gz">>
+            <PatternLayout>
+                <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!--change local path here-->
         <RollingFile name="ErrorFile" fileName="/toDoLogs/error.log"
                      filePattern="logs/error-%d{MM-dd-yyyy}.log.gz">>
             <PatternLayout>
@@ -44,15 +56,21 @@
         <Logger name="com.javarush.todoapp.services" level="ALL">
             <AppenderRef ref="Service"/>
         </Logger>
+        <Logger name ="com/javarush/todoapp/AppContextListener.java" level="All">
+            <AppenderRef ref="Service"/>
+        </Logger>
         <Logger name ="com/javarush/todoapp/DbConfiguration.java" level="All">
             <AppenderRef ref="Service"/>
         </Logger>
-
-        <Logger name="com/javarush/todoapp/repositories" level="INFO">
+        <Logger name ="com/javarush/todoapp/LiquibaseConnect.java" level="All">
             <AppenderRef ref="Service"/>
         </Logger>
 
-        <Logger name="com.javarush.todoapp.servlets" level="INFO" >
+        <Logger name="com/javarush/todoapp/repositories" level="ALL">
+            <AppenderRef ref="Repository"/>
+        </Logger>
+
+        <Logger name="com.javarush.todoapp.servlets" level="ALL" >
             <AppenderRef ref="Servlet"/>
         </Logger>
 

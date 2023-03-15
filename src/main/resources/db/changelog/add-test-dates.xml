@@ -8,11 +8,26 @@
     <changeSet id="add_test_dates" author="Lilla">
 
         <insert tableName="user" schemaName="todo">
-            <column name="id" value="1"/>
+            <column name="id" valueSequenceNext="user_id_seq"/>
             <column name="user_name" value="Olga"/>
             <column name="login" value="Olga"/>
             <column name="password" value="81c6dcadcde6f514d20b5ff115b74ba9"/>
         </insert>
+
+        <insert tableName="teg" schemaName="todo">
+            <column name="id" valueSequenceNext="teg_id_seq"/>
+            <column name="title" value="Job"/>
+            <column name="color" value="#f6b73c"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
+        <insert tableName="teg" schemaName="todo">
+            <column name="id" valueSequenceNext="teg_id_seq"/>
+            <column name="title" value="Study"/>
+            <column name="color" value="#3b48f7"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
     </changeSet>
 
 </databaseChangeLog>

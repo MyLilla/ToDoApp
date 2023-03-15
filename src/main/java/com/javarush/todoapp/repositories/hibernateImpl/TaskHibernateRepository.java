@@ -3,6 +3,8 @@ package com.javarush.todoapp.repositories.hibernateImpl;
 import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.repositories.TaskRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 public class TaskHibernateRepository extends GeneralHibernateRepository implements TaskRepository {
+
+    private final Logger LOGGER = LogManager.getLogger(TaskHibernateRepository.class);
 
     public TaskHibernateRepository(SessionFactory sessionFactory) {
         super(sessionFactory);
@@ -66,7 +70,7 @@ public class TaskHibernateRepository extends GeneralHibernateRepository implemen
             session.beginTransaction();
             Task newTask = session.merge(task);
             session.getTransaction().commit();
-        return newTask.getId();
+            return newTask.getId();
         }
     }
 
@@ -75,7 +79,14 @@ public class TaskHibernateRepository extends GeneralHibernateRepository implemen
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Task task = session.find(Task.class, id);
+            LOGGER.info("Got task for delete: {}, with id: {}", task, task.getId());
+
+            task.setTegs(null);
+            task.setUserId(null);
+            session.saveOrUpdate(task);
+
             session.remove(task);
+            LOGGER.info("Task was removed");
             session.getTransaction().commit();
         }
     }

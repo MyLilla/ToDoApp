@@ -38,6 +38,6 @@
                                  referencedColumnNames="id"/>
 
 
-        <createSequence sequenceName="SQ_COMMENTS_ID" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="comment_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
     </changeSet>
 </databaseChangeLog>

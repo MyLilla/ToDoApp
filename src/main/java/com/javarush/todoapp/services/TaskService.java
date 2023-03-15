@@ -77,7 +77,7 @@ public class TaskService {
 
     public void deleteTask(String id) {
         Long taskId = Long.parseLong(id);
-
+        LOGGER.info("Got Long id for delete: {}", id);
         taskRepository.deleteTask(taskId);
     }
 
