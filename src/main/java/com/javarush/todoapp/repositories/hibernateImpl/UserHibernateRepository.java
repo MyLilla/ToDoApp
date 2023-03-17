@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+
 public class UserHibernateRepository extends GeneralHibernateRepository implements UserRepository {
 
     private final Logger LOGGER = LogManager.getLogger(UserHibernateRepository.class);

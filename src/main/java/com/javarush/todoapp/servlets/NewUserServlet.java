@@ -1,10 +1,12 @@
 package com.javarush.todoapp.servlets;
 
+import com.javarush.todoapp.exceptions.LongNameException;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -35,9 +37,21 @@ public class NewUserServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        User user = userService.createUser(name, login, password);
+        User user;
+        try {
+            user = userService.createUser(name, login, password);
+        } catch (LoginException e) {
+            response.sendRedirect("index.html?error=This login already exist, use something new");
+            LOGGER.debug("incorrect login. redirect to index.html");
+            return;
+        } catch (LongNameException e) {
+            response.sendRedirect("index.html?error=This User name is very long, use something short");
+            LOGGER.debug("long user_name. redirect to index.html");
+            return;
+        }
         if (user == null) {
-            response.sendRedirect("index.html?error=You added incorrect information, Try again");
+            response.sendRedirect("index.html?error=You added incorrect information, try again");
+            LOGGER.debug("incorrect information. redirect to index.html");
             return;
         }
         LOGGER.info("Created new user: {}, name: {}, login: {}",

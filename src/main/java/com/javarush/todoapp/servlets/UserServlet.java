@@ -5,6 +5,7 @@ import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static java.util.Objects.isNull;
 
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
@@ -36,9 +35,16 @@ public class UserServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        User user = userService.getUserWithPassword(login, password);
+        User user;
+        try {
+            user = userService.getUserWithPassword(login, password);
+        } catch (LoginException e) {
+            response.sendRedirect("index.html?error=You added incorrect information, try again");
+            LOGGER.debug("User with login: {} is not exist. redirect to index.html", login);
+            return;
+        }
         if (user == null) {
-            response.sendRedirect("index.html?error=You added incorrect information, Try again");
+            response.sendRedirect("index.html?error=You added incorrect information, try again");
             return;
         }
         LOGGER.debug("User {} was got with login: {}", user, login);

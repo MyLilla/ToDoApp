@@ -36,5 +36,4 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<Comment> comments = new HashSet<>();
-
 }
