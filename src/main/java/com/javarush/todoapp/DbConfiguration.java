@@ -1,6 +1,5 @@
 package com.javarush.todoapp;
 
-import com.javarush.todoapp.model.Comment;
 import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
@@ -37,7 +36,6 @@ public class DbConfiguration {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Task.class)
                 .addAnnotatedClass(Teg.class)
-                .addAnnotatedClass(Comment.class)
                 .setProperties(properties)
                 .buildSessionFactory();
 

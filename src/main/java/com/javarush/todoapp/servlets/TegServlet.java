@@ -1,15 +1,15 @@
 package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javarush.todoapp.dto.TegDto;
-import com.javarush.todoapp.dto.UserDto;
-import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
 import com.javarush.todoapp.services.TegService;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,6 @@ public class TegServlet extends HttpServlet {
 
     private final Logger LOGGER = LogManager.getLogger(TegServlet.class);
 
-    private TaskService taskService;
     private TegService tegService;
     private UserService userService;
     private ObjectMapper objectMapper;
@@ -32,10 +31,10 @@ public class TegServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        taskService = (TaskService) config.getServletContext().getAttribute("taskService");
         tegService = (TegService) config.getServletContext().getAttribute("tegService");
         userService = (UserService) config.getServletContext().getAttribute("userService");
         objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         LOGGER.info("create object Mapper");
     }
 
@@ -45,7 +44,9 @@ public class TegServlet extends HttpServlet {
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 
+
         List<TegDto> tegDtoList = tegService.getAllUsersTegs(userId);
+
         LOGGER.info("tegDtoList was get from db {}", tegDtoList);
 
         String tegsJson = objectMapper.writeValueAsString(tegDtoList);
@@ -63,11 +64,15 @@ public class TegServlet extends HttpServlet {
 
         String teg = request.getParameter("teg");
         String color = request.getParameter("color");
-        LOGGER.info("Get teg: {} and color: {}", teg, color);
+        LOGGER.info("Get teg: {} and color: {} for creating", teg, color);
 
         tegService.createTeg(teg, color, userId);
 
-        userService.updateUser(userId);
+        try {
+            userService.updateUser(userId);
+        } catch (LoginException e) {
+            LOGGER.error("Changed login for user during adding teg. userID: {}", userId);
+        }
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

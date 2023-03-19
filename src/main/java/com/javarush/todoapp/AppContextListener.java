@@ -34,7 +34,7 @@ public class AppContextListener implements ServletContextListener {
         TegRepository tegRepository = new TegHibernateRepository(sessionFactory);
 
         UserService userService = new UserService(userRepository);
-        TaskService taskService = new TaskService(taskRepository, userRepository);
+        TaskService taskService = new TaskService(taskRepository, userRepository, tegRepository);
         TegService tegService = new TegService(tegRepository, userRepository);
 
         context.setAttribute("userService", userService);

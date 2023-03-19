@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-
 public class UserHibernateRepository extends GeneralHibernateRepository implements UserRepository {
 
     private final Logger LOGGER = LogManager.getLogger(UserHibernateRepository.class);
@@ -36,6 +35,7 @@ public class UserHibernateRepository extends GeneralHibernateRepository implemen
             Query query = session.createQuery
                     ("from User u where u.login = '" + login + "'", User.class);
             User user = (User) query.getSingleResult();
+            LOGGER.info("Get user: {}, with id: {}", user, user.getId());
 
             if (user.getPassword().equals(password)) {
                 result = user;

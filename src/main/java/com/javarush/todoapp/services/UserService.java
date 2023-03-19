@@ -52,7 +52,6 @@ public class UserService {
             LOGGER.debug("User with login: {} already exist", login);
             throw new LoginException("User with login: " + login + " already exist" + exception);
         }
-
         return user;
     }
 

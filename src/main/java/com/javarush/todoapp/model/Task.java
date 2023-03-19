@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -29,17 +28,10 @@ public class Task {
     private String description;
     @Column
     private Short hours = 0;
-
     @Enumerated
     private Status status;
-
-    @OneToMany (fetch = FetchType.EAGER)
-    @JoinColumn(name = "task_id")
-    private Set<Teg> tegs = new HashSet<>();
-
     @Enumerated
     private Priority priority;
-
     @CreationTimestamp
     @Column(name = "create_date", nullable = false)
     private LocalDateTime createDate;
@@ -51,4 +43,9 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User userId;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(schema = "todo", name = "task_teg",
+            inverseJoinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
+    private Set<Teg> tegs;
 }

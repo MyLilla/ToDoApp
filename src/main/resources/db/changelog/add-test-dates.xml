@@ -9,9 +9,9 @@
 
         <insert tableName="user" schemaName="todo">
             <column name="id" valueSequenceNext="user_id_seq"/>
-            <column name="user_name" value="Olga"/>
-            <column name="login" value="Olga"/>
-            <column name="password" value="81c6dcadcde6f514d20b5ff115b74ba9"/>
+            <column name="user_name" value="Test User"/>
+            <column name="login" value="user"/>
+            <column name="password" value="d8578edf8458ce06fbc5bb76a58c5ca4"/>
         </insert>
 
         <insert tableName="teg" schemaName="todo">
@@ -20,7 +20,6 @@
             <column name="color" value="#f6b73c"/>
             <column name="user_id" value="1"/>
         </insert>
-
         <insert tableName="teg" schemaName="todo">
             <column name="id" valueSequenceNext="teg_id_seq"/>
             <column name="title" value="Study"/>
@@ -28,6 +27,39 @@
             <column name="user_id" value="1"/>
         </insert>
 
-    </changeSet>
+<!--        <insert tableName="task" schemaName="todo">-->
+<!--            <column name="id" valueSequenceNext="task_id_seq"/>-->
+<!--            <column name="title" value="JS"/>-->
+<!--            <column name="description" value="To do homework"/>-->
+<!--            <column name="hours" value="2"/>-->
+<!--            <column name="status" value="0"/>-->
+<!--            <column name="priority" value="0"/>-->
+<!--            <column name="create_date" value="2023-03-19 17:14:20.000000"/>-->
+<!--            <column name="update_date" value="2023-03-19 17:14:20.000000"/>-->
+<!--            <column name="user_id" value="1"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="task" schemaName="todo">-->
+<!--            <column name="id" valueSequenceNext="task_id_seq"/>-->
+<!--            <column name="title" value="Check code"/>-->
+<!--            <column name="description" value="Check project and make code review"/>-->
+<!--            <column name="hours" value="1"/>-->
+<!--            <column name="status" value="2"/>-->
+<!--            <column name="priority" value="2"/>-->
+<!--            <column name="create_date" value="2023-02-19 17:14:20.000000"/>-->
+<!--            <column name="update_date" value="2023-03-19 17:14:20.000000"/>-->
+<!--            <column name="user_id" value="1"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="task" schemaName="todo">-->
+<!--            <column name="id" valueSequenceNext="task_id_seq"/>-->
+<!--            <column name="title" value="Read Me"/>-->
+<!--            <column name="description" value="Write Read.me for project"/>-->
+<!--            <column name="hours" value="1"/>-->
+<!--            <column name="status" value="3"/>-->
+<!--            <column name="priority" value="0"/>-->
+<!--            <column name="create_date" value="2023-03-15 17:14:20.000000"/>-->
+<!--            <column name="update_date" value="2023-03-16 17:14:20.000000"/>-->
+<!--            <column name="user_id" value="1"/>-->
+<!--        </insert>-->
 
+    </changeSet>
 </databaseChangeLog>

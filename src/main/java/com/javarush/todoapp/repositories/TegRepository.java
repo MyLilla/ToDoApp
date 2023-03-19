@@ -1,11 +1,16 @@
 package com.javarush.todoapp.repositories;
 
+import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TegRepository {
 
     void save(Teg teg);
-    List<Teg> getAll(Long id);
+
+    void joinTegsInTask(Task task, Set<Teg> tegs);
+
+    Set<Teg> getByTitle(String title);
 }

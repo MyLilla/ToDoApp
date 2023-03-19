@@ -2,11 +2,10 @@ package com.javarush.todoapp.servlets;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
-import com.javarush.todoapp.services.TegService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,22 +17,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet(name = "TaskServlet", value = "/task")
 public class TaskServlet extends HttpServlet {
 
     private final Logger LOGGER = LogManager.getLogger(TaskServlet.class);
     private TaskService taskService;
-    private TegService tegService;
     private ObjectMapper objectMapper;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         taskService = (TaskService) config.getServletContext().getAttribute("taskService");
-        tegService = (TegService) config.getServletContext().getAttribute("tegService");
         objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         LOGGER.info("create object Mapper");
     }
 
@@ -63,16 +60,15 @@ public class TaskServlet extends HttpServlet {
         String tegs = request.getParameter("tegs");
         LOGGER.info("Get tegs: {}", tegs);
 
-        Set<Teg> addedTegs = tegService.getSetTegs(tegs, userId);
-
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
         String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 
-        taskService.createTask(title, description, hours, addedTegs,
+        taskService.createTask(title, description, hours, tegs,
                 status, priority, userId);
+
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }

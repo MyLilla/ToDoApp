@@ -8,7 +8,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface TegMapper {
     TegMapper INSTANCE = Mappers.getMapper(TegMapper.class);
-    TegDto toTegDto (Teg teg);
 
-    Teg mapToEntity (TegDto tegDto);
+    TegDto toTegDto(Teg teg);
+
+    Teg mapToEntity(TegDto tegDto);
 }

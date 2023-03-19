@@ -8,6 +8,7 @@ import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.repositories.TaskRepository;
+import com.javarush.todoapp.repositories.TegRepository;
 import com.javarush.todoapp.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,11 +23,13 @@ public class TaskService {
 
     private TaskRepository taskRepository;
     private UserRepository userRepository;
+    private TegRepository tegRepository;
     private final TaskMapper taskMapper = TaskMapper.INSTANCE;
 
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository, TegRepository tegRepository) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
+        this.tegRepository = tegRepository;
         LOGGER.info("Created TaskService");
     }
 
@@ -58,11 +61,13 @@ public class TaskService {
         return dto;
     }
 
-    public void createTask(String title, String description, String hours, Set<Teg> tegs,
-                           String status, String priority, Long userId) {
+    public void createTask(String title, String description, String hours, String tegs, String status, String priority, Long userId) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
+        if (hours.isEmpty()) {
+            hours = "0";
+        }
         task.setHours(Short.parseShort(hours));
         task.setStatus(Status.valueOf(status));
         task.setPriority(Priority.valueOf(priority));
@@ -70,8 +75,14 @@ public class TaskService {
         User user = userRepository.getById(userId);
         task.setUserId(user);
 
+        Set<Teg> tegsForTask = tegRepository.getByTitle(tegs);
+        LOGGER.info("Got tegs: {} for new task: {}", tegsForTask, task);
+        task.setTegs(tegsForTask);
+
         Long taskId = taskRepository.saveOrUpdate(task);
-        taskRepository.joinTegsInTask(taskId, tegs);
+        Task newTask = taskRepository.getById(taskId);
+
+        tegRepository.joinTegsInTask(newTask, tegsForTask);
         LOGGER.info("joinTegs: {} InTask: {}", tegs, taskId);
     }
 
@@ -81,8 +92,7 @@ public class TaskService {
         taskRepository.deleteTask(taskId);
     }
 
-    public void updateTask(String title, String description, String hours,
-                           String status, String priority, Long taskId) {
+    public void updateTask(String title, String description, String hours, String status, String priority, Long taskId) {
 
         Task task = taskRepository.getById(taskId);
         LOGGER.info("get Task: {} for updating", task);

@@ -80,10 +80,12 @@
                     + task.title + "</td><td>"
                     + task.description + "</td><td>"
                     + task.hours + "</td><td>"
-                    + task.status + "</td><td id='tegs'>"     // сделать перебор тегов
-                   // + $.each(task.tegs, function (i, tegs){
-                   //      $('#tegs').html(tegs.title + " ")
-                   //      }) +
+                    + task.status + "</td><td id='tegs'>"
+                    // пытаюсь сделать перебор тегов, но все просто съезжает и приоритеты
+                    // приклеиваются к тегам, которые NoN
+                    // + $.each(task.tegs, function (i, tegs){
+                    //      $('#tegs').html(tegs.title + " ")
+                    //      }) +
                     + task.tegs.title
                     + "</td><td>"
                     + task.priority + "</td><td>"

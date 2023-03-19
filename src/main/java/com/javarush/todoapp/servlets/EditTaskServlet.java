@@ -1,9 +1,8 @@
 package com.javarush.todoapp.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.model.Task;
-import com.javarush.todoapp.model.User;
 import com.javarush.todoapp.services.TaskService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,11 +20,14 @@ public class EditTaskServlet extends HttpServlet {
 
     private final Logger LOGGER = LogManager.getLogger(EditTaskServlet.class);
     private TaskService taskService;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         taskService = (TaskService) config.getServletContext().getAttribute("taskService");
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     @Override
@@ -51,9 +53,6 @@ public class EditTaskServlet extends HttpServlet {
         TaskDto taskDto = (TaskDto) request.getSession().getAttribute("task");
         LOGGER.info("TaskDto: {}", taskDto);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        LOGGER.info("create object Mapper");
-
         String tasksJson = objectMapper.writeValueAsString(taskDto);
         LOGGER.info("from obj to String JSON: {}", tasksJson);
 
@@ -72,6 +71,7 @@ public class EditTaskServlet extends HttpServlet {
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
         String tegs = request.getParameter("tegs");
+        // тут пока теги не редактируются. Не пытаюсь пока с остальным не разберусь
         String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 

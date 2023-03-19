@@ -3,6 +3,8 @@ package com.javarush.todoapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -19,11 +21,13 @@ public class Teg {
 
     @Column(length = 10)
     private String color;
-
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task taskId;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
+
+    @ManyToMany
+    @JoinTable(schema = "todo", name = "task_teg",
+            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"))
+    private Set<Task> tasks;
 }
