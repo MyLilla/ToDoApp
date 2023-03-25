@@ -12,11 +12,11 @@ After authorization/registration, the user enters an individual page
 
 <h3><a>Building: </a></h3>
 
-```---```
+```docker-compose up```
 
 <h3 ><a>Launch:</a></h3>
 
-```---```
+```localhost:1111```
 
 <h3 ><a>Class description</a></h3>
 >root of the project:

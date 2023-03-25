@@ -7,6 +7,10 @@
 
     <changeSet id="create_user_table" author="Lilla">
 
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS todo;
+        </sql>
+
         <createTable tableName="user" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
