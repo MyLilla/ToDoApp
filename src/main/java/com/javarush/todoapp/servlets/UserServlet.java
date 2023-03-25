@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.util.Objects.isNull;
+
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
 
@@ -43,7 +45,7 @@ public class UserServlet extends HttpServlet {
             LOGGER.debug("User with login: {} is not exist. redirect to index.html", login);
             return;
         }
-        if (user == null) {
+        if (isNull(user)) {
             response.sendRedirect("index.html?error=You added incorrect information, try again");
             return;
         }
