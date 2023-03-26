@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 
 import java.util.Properties;
 
@@ -19,18 +18,18 @@ public class DbConfiguration {
     private final SessionFactory sessionFactory;
 
     public DbConfiguration() {
+
         Properties properties = new Properties();
-        properties.put(Environment.DRIVER, "com.p6spy.engine.spy.P6SpyDriver");
-        properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-        properties.put(Environment.URL, "jdbc:p6spy:postgresql://localhost:5432/postgres");
-        properties.put(Environment.USER, "postgres");
-        properties.put(Environment.PASS, "1234");
 
-        properties.put(Environment.HBM2DDL_AUTO, "validate");
+        properties.put("hibernate.connection.driver_class", System.getenv("DB_DRIVER"));
+        properties.put("hibernate.dialect", System.getenv("DB_DIALECT"));
+        properties.put("hibernate.connection.url", System.getenv("DB_URL"));
+        properties.put("hibernate.connection.username", System.getenv("DB_USER"));
+        properties.put("hibernate.connection.password", System.getenv("DB_PASSWORD"));
 
+        properties.put("hibernate.hbm2ddl", System.getenv("DB_HBM2DDL_AUTO"));
 
         LOGGER.info("Added properties for data base: {}", properties);
-
 
         sessionFactory = new Configuration()
                 .addAnnotatedClass(User.class)
