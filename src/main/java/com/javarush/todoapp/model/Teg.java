@@ -1,5 +1,7 @@
 package com.javarush.todoapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +23,15 @@ public class Teg {
 
     @Column(length = 10)
     private String color;
-    @ManyToOne
+
+    @JsonBackReference
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(schema = "todo", name = "task_teg",
             inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
             joinColumns = @JoinColumn(name = "teg_id", referencedColumnName = "id"))
