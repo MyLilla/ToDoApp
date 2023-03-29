@@ -24,8 +24,6 @@ public class Teg {
     @Column(length = 10)
     private String color;
 
-    @JsonBackReference
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;

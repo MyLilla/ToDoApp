@@ -12,6 +12,8 @@ import org.hibernate.exception.DataException;
 
 import javax.security.auth.login.LoginException;
 
+import static java.util.Objects.hash;
+import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.ObjectUtils.anyNull;
 
 public class UserService {
@@ -25,6 +27,7 @@ public class UserService {
     }
 
     public User createUser(String name, String login, String password) throws LoginException, LongNameException {
+
 
         if (anyNull(name, login, password)) {
             LOGGER.debug("One of attribute is null. name: {}, login: {}, password: {}",

@@ -1,9 +1,11 @@
 package com.javarush.todoapp.services;
 
 import com.javarush.todoapp.dto.TaskDto;
+import com.javarush.todoapp.dto.TegDto;
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import com.javarush.todoapp.mappers.TaskMapper;
+import com.javarush.todoapp.mappers.TegMapper;
 import com.javarush.todoapp.model.Task;
 import com.javarush.todoapp.model.Teg;
 import com.javarush.todoapp.model.User;
@@ -14,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +28,7 @@ public class TaskService {
     private UserRepository userRepository;
     private TegRepository tegRepository;
     private final TaskMapper taskMapper = TaskMapper.INSTANCE;
+    private final TegMapper tegMapper = TegMapper.INSTANCE;
 
     public TaskService(TaskRepository taskRepository, UserRepository userRepository, TegRepository tegRepository) {
         this.taskRepository = taskRepository;
@@ -43,7 +47,14 @@ public class TaskService {
         for (Task task : taskList) {
             LOGGER.info("Got task: {}", task);
             TaskDto taskDto = taskMapper.toTaskDto(task);
+            Set<TegDto> tegDtos = new HashSet<>();
+            for (Teg teg : task.getTegs()) {
+                TegDto tegDto = tegMapper.toTegDto(teg);
+                tegDtos.add(tegDto);
+            }
+            taskDto.setTegs(tegDtos);
             LOGGER.info("Got taskDto: {}", taskDto);
+
             taskDtoList.add(taskDto);
         }
         return taskDtoList;
@@ -61,7 +72,8 @@ public class TaskService {
         return dto;
     }
 
-    public void createTask(String title, String description, String hours, String tegs, String status, String priority, Long userId) {
+    public void createTask(String title, String description, String hours,
+                           String[] tegs, String status, String priority, Long userId) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
@@ -75,15 +87,15 @@ public class TaskService {
         User user = userRepository.getById(userId);
         task.setUserId(user);
 
-        Set<Teg> tegsForTask = tegRepository.getByTitle(tegs);
+        Set<Teg> tegsForTask = new HashSet<>();
+        for (String tegName : tegs) {
+            Teg teg = tegRepository.getByTitle(tegName);
+            tegsForTask.add(teg);
+        }
         LOGGER.info("Got tegs: {} for new task: {}", tegsForTask, task);
         task.setTegs(tegsForTask);
 
-        Long taskId = taskRepository.saveOrUpdate(task);
-        Task newTask = taskRepository.getById(taskId);
-
-        tegRepository.joinTegsInTask(newTask, tegsForTask);
-        LOGGER.info("joinTegs: {} InTask: {}", tegs, taskId);
+        taskRepository.saveOrUpdate(task);
     }
 
     public void deleteTask(String id) {

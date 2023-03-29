@@ -2,7 +2,6 @@ package com.javarush.todoapp.dto;
 
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
-import com.javarush.todoapp.model.Teg;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +18,5 @@ public class TaskDto {
     private Status status;
     private Priority priority;
     private String createDate;
-    private Set<Teg> tegs;
+    private Set<TegDto> tegs;
 }

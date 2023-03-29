@@ -57,8 +57,10 @@ public class TaskServlet extends HttpServlet {
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 
-        String tegs = request.getParameter("tegs");
-        LOGGER.info("Get tegs: {}", tegs);
+        String[] tegs = request.getParameterValues("tegs[]");
+        for (String s : tegs) {
+            LOGGER.info("Get teg: {}", s);
+        }
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");

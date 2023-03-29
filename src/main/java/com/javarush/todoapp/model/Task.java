@@ -41,8 +41,6 @@ public class Task {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @JsonBackReference
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;

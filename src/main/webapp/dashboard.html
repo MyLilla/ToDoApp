@@ -17,7 +17,7 @@
 
 <div class="text-center container">
     <button type="button" class="btn btn-dark text-center"
-            onclick="document.location='/ToDoApp_war_exploded/index.html'">
+            onclick="document.location='/index.html'">
         Sigh out
     </button>
 </div>
@@ -52,10 +52,15 @@
 
 <div class="text-center container">
     <button type="button" class="btn btn-success text-center"
-            onclick="document.location='/ToDoApp_war_exploded/task.html'">
+            onclick="document.location='/task.html'">
         Create new task
     </button>
     <br><br>
+
+    <button type="button" class="btn btn-dark text-center"
+            onclick="document.location='/createTeg.html'">
+        Create new teg
+    </button>
 </div>
 
 <script>
@@ -92,11 +97,11 @@
                     + new Date(task.createDate).toLocaleDateString() + "</td><td>"
 
                     + "<button id='buttonDelete' onclick='deleteTask(" + task.id + ")'>"
-                    + "<img src='/ToDoApp_war_exploded/img/delete.png'>"
+                    + "<img src='/img/delete.png'>"
                     + "</button>" + "</td>"
 
-                    + "<td><a href='/ToDoApp_war_exploded/editTask?taskForEditId=" + task.id + "'>"
-                    + "<img src='/ToDoApp_war_exploded/img/edit.png'>"
+                    + "<td><a href='/editTask?taskForEditId=" + task.id + "'>"
+                    + "<img src='/img/edit.png'>"
                     + "</a>" + "</td>"
 
                     + "</tr>"

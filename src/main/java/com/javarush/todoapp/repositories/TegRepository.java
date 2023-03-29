@@ -10,7 +10,5 @@ public interface TegRepository {
 
     void save(Teg teg);
 
-    void joinTegsInTask(Task task, Set<Teg> tegs);
-
-    Set<Teg> getByTitle(String title);
+    Teg getByTitle(String title);
 }

@@ -46,21 +46,11 @@
             <span class="input-group-text">
                 Tegs:
             </span>
-            <select name="tegs" id="tegs" class="form-control">
-                <!--
-                 <select name="tegs" id="tegs[]" class="form-control" multiple="multiple" size="3">
-                 хочу сделать, чтоб можно было выбрать несколько тегов, но выделяется все равно только 1
-                 -->
+
+            <select name="tegs[]" id="tegs" class="form-control" multiple="multiple">
             </select>
         </div>
 
-        <br>
-        <button type="button" class="btn btn-dark text-center"
-                onclick="document.location='/ToDoApp_war_exploded/createTeg.html'">
-            Create new teg
-        </button>
-
-        <br><br>
         <div class="input-group mb-3">
             <span class="input-group-text">
                 Status:
@@ -92,13 +82,17 @@
     function showTegs() {
         let url = "teg"
         $.get(url, function (response) {
+
+            const tegs = document.getElementById('tegs');
             $.each(response, function (i, teg) {
-                const tegs = document.getElementById('tegs');
-                tegs[i] = new Option(teg.title, teg.title);
-                console.log(tegs[i])
+                let option = document.createElement('option');
+                option.text = teg.title;
+                option.value = teg.title;
+                tegs.appendChild(option);
             });
         });
     }
+
 </script>
 
 </body>
