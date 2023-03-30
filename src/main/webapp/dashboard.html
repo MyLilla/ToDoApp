@@ -81,17 +81,21 @@
 
         $.get(url, function (response) {
             $.each(response, function (i, task) {
+
+                let allTags = "";
+
+                $.each(task.tegs, function (i, tegs) {
+                    allTags += tegs.title;
+                    allTags += " ";
+                })
+                console.log(allTags)
+
                 $('<tr>').html("<td>"
                     + task.title + "</td><td>"
                     + task.description + "</td><td>"
                     + task.hours + "</td><td>"
-                    + task.status + "</td><td id='tegs'>"
-                    // пытаюсь сделать перебор тегов, но все просто съезжает и приоритеты
-                    // приклеиваются к тегам, которые NoN
-                    // + $.each(task.tegs, function (i, tegs){
-                    //      $('#tegs').html(tegs.title + " ")
-                    //      }) +
-                    + task.tegs.title
+                    + task.status + "</td><td>"
+                    + allTags
                     + "</td><td>"
                     + task.priority + "</td><td>"
                     + new Date(task.createDate).toLocaleDateString() + "</td><td>"
