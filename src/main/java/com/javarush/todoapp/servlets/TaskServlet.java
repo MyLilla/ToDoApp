@@ -41,7 +41,7 @@ public class TaskServlet extends HttpServlet {
         Long userId = (Long) request.getSession().getAttribute("userId");
 
         String countTasks = request.getParameter("countTasks");
-        List<TaskDto> taskList = taskService.getAllTasks(userId, countTasks);
+        List<TaskDto> taskList = taskService.getAllTasksDto(userId, countTasks);
         LOGGER.info("TasksList was get from db {}", taskList);
 
         String tasksJson = objectMapper.writeValueAsString(taskList);
@@ -58,10 +58,6 @@ public class TaskServlet extends HttpServlet {
         Long userId = (Long) request.getSession().getAttribute("userId");
 
         String[] tegs = request.getParameterValues("tegs[]");
-        for (String s : tegs) {
-            LOGGER.info("Get teg: {}", s);
-        }
-
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");

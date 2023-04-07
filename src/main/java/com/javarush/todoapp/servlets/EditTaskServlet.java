@@ -39,7 +39,7 @@ public class EditTaskServlet extends HttpServlet {
 
         LOGGER.info("get id: {} for edition", taskForEditId);
 
-        TaskDto taskDto = taskService.getTasksById(Long.parseLong(taskForEditId));
+        TaskDto taskDto = taskService.getTasksDtoById(Long.parseLong(taskForEditId));
         LOGGER.info("get taskDto {} by id {}", taskDto, taskForEditId);
         request.getSession().setAttribute("task", taskDto);
 

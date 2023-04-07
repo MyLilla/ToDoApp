@@ -22,7 +22,7 @@ public class UserHibernateRepository extends GeneralHibernateRepository implemen
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(user);
-            LOGGER.info("Save user to db");
+            LOGGER.debug("Save user: {} to db", user.getUserName());
             session.getTransaction().commit();
         }
     }
@@ -31,16 +31,14 @@ public class UserHibernateRepository extends GeneralHibernateRepository implemen
     public User getWithPassword(String login, String password) {
         User result = null;
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             Query query = session.createQuery
                     ("from User u where u.login = '" + login + "'", User.class);
             User user = (User) query.getSingleResult();
-            LOGGER.info("Get user: {}, with id: {}", user, user.getId());
+            LOGGER.debug("Get user: {}, with id: {}", user, user.getId());
 
             if (user.getPassword().equals(password)) {
                 result = user;
             }
-            session.getTransaction().commit();
         }
         return result;
     }

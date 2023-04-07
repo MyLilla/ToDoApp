@@ -33,7 +33,7 @@ public class TegService {
         newTeg.setTitle(teg);
         newTeg.setColor(color);
         newTeg.setUserId(user);
-        LOGGER.info("Created new Teg: {}", newTeg);
+        LOGGER.debug("Created new Teg: {}", newTeg);
 
         tegRepository.save(newTeg);
 

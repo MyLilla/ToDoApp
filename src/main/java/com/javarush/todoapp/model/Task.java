@@ -1,7 +1,5 @@
 package com.javarush.todoapp.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.javarush.todoapp.enums.Priority;
 import com.javarush.todoapp.enums.Status;
 import jakarta.persistence.*;

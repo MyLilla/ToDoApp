@@ -23,7 +23,7 @@ public class TegHibernateRepository extends GeneralHibernateRepository implement
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(teg);
-            LOGGER.info("Teg saved in db");
+            LOGGER.debug("Teg: {} saved in db", teg);
             session.getTransaction().commit();
         }
     }
@@ -31,13 +31,9 @@ public class TegHibernateRepository extends GeneralHibernateRepository implement
     public Teg getByTitle(String title) {
 
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             Query query = session.createQuery
                     ("from Teg t where t.title = '" + title + "'", Teg.class);
-            Teg teg = (Teg) query.getSingleResult();
-            session.getTransaction().commit();
-            return teg;
-
+            return (Teg) query.getSingleResult();
         } catch (NoResultException exception) {
             return null;
         }

@@ -19,33 +19,31 @@ public class TaskHibernateRepository extends GeneralHibernateRepository implemen
     }
 
     @Override
-    public List<Task> getAllWithLimit(Long id, Integer pageSize) {
+    public List<Task> getAllWithLimit(Long userId, Integer pageSize) {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             Query<Task> query = session.createQuery(
-                    "from Task t where t.userId = " + id, Task.class);
+                    "from Task t where t.userId = " + userId, Task.class);
             query.setMaxResults(pageSize);
-            List<Task> taskList = query.list();
-            session.getTransaction().commit();
-            return taskList;
+            LOGGER.debug("Tasks were got with limit: {}", pageSize);
+            return query.list();
         }
     }
 
     @Override
-    public Long getCount(Long id) {
+    public Long getCount(Long userId) {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            String hql = "select count(*) from Task t where t.userId = " + id;
+            String hql = "select count(*) from Task t where t.userId = " + userId;
             Query<Long> query = session.createQuery(hql, Long.class);
-            session.getTransaction().commit();
+            LOGGER.debug("Count was got for user: {}", userId);
             return query.getSingleResult();
         }
     }
 
     @Override
-    public Task getById(Long id) {
+    public Task getById(Long taskId) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Task.class, id);
+            LOGGER.debug("Got task with id: {}", taskId);
+            return session.get(Task.class, taskId);
         }
     }
 
@@ -55,19 +53,20 @@ public class TaskHibernateRepository extends GeneralHibernateRepository implemen
             session.beginTransaction();
             Task newTask = session.merge(task);
             session.getTransaction().commit();
+            LOGGER.debug("Save or update task: {} with id: {}", task, task.getId());
             return newTask.getId();
         }
     }
 
     @Override
-    public void deleteTask(Long id) {
+    public void deleteTask(Long taskId) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Task task = session.find(Task.class, id);
+            Task task = session.find(Task.class, taskId);
             LOGGER.info("Got task for delete: {}, with id: {}", task, task.getId());
 
             session.remove(task);
-            LOGGER.info("Task was removed");
+            LOGGER.debug("Task was removed");
             session.getTransaction().commit();
         }
     }
