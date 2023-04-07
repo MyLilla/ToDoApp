@@ -23,7 +23,7 @@ public class DbConfiguration {
 
         properties.put("hibernate.connection.driver_class", System.getenv("DB_DRIVER"));
         properties.put("hibernate.dialect", System.getenv("DB_DIALECT"));
-        properties.put("hibernate.connection.url", System.getenv("DB_URL"));
+        properties.put("hibernate.connection.url", System.getenv("DB_URL_LOCAL"));
         properties.put("hibernate.connection.username", System.getenv("DB_USER"));
         properties.put("hibernate.connection.password", System.getenv("DB_PASSWORD"));
 

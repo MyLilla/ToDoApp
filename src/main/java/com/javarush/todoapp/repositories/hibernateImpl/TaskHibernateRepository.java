@@ -18,19 +18,6 @@ public class TaskHibernateRepository extends GeneralHibernateRepository implemen
         super(sessionFactory);
     }
 
-
-    public List<Task> getAll(Long id) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            Query<Task> query = session.createQuery(
-                    "from Task t where t.userId = " + id, Task.class);
-
-            List<Task> taskList = query.list();
-            session.getTransaction().commit();
-            return taskList;
-        }
-    }
-
     @Override
     public List<Task> getAllWithLimit(Long id, Integer pageSize) {
         try (Session session = sessionFactory.openSession()) {

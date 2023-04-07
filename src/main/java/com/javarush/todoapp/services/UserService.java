@@ -12,8 +12,6 @@ import org.hibernate.exception.DataException;
 
 import javax.security.auth.login.LoginException;
 
-import static java.util.Objects.hash;
-import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.ObjectUtils.anyNull;
 
 public class UserService {

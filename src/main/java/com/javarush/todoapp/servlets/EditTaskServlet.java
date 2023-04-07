@@ -70,12 +70,11 @@ public class EditTaskServlet extends HttpServlet {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
-        String tegs = request.getParameter("tegs");
-        // тут пока теги не редактируются. Не пытаюсь пока с остальным не разберусь
+        String[] tegs = request.getParameterValues("tegs[]");
         String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 
-        taskService.updateTask(title, description, hours,
+        taskService.updateTask(title, description, hours, tegs,
                 status, priority, taskId);
 
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);

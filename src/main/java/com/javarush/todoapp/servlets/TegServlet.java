@@ -3,7 +3,6 @@ package com.javarush.todoapp.servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javarush.todoapp.dto.TegDto;
-import com.javarush.todoapp.services.TaskService;
 import com.javarush.todoapp.services.TegService;
 import com.javarush.todoapp.services.UserService;
 import org.apache.logging.log4j.LogManager;

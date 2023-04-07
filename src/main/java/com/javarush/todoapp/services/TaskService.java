@@ -1,17 +1,10 @@
 package com.javarush.todoapp.services;
 
-import com.javarush.todoapp.dto.TaskDto;
-import com.javarush.todoapp.dto.TegDto;
-import com.javarush.todoapp.enums.Priority;
-import com.javarush.todoapp.enums.Status;
-import com.javarush.todoapp.mappers.TaskMapper;
-import com.javarush.todoapp.mappers.TegMapper;
-import com.javarush.todoapp.model.Task;
-import com.javarush.todoapp.model.Teg;
-import com.javarush.todoapp.model.User;
-import com.javarush.todoapp.repositories.TaskRepository;
-import com.javarush.todoapp.repositories.TegRepository;
-import com.javarush.todoapp.repositories.UserRepository;
+import com.javarush.todoapp.dto.*;
+import com.javarush.todoapp.enums.*;
+import com.javarush.todoapp.mappers.*;
+import com.javarush.todoapp.model.*;
+import com.javarush.todoapp.repositories.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -104,7 +97,8 @@ public class TaskService {
         taskRepository.deleteTask(taskId);
     }
 
-    public void updateTask(String title, String description, String hours, String status, String priority, Long taskId) {
+    public void updateTask(String title, String description, String hours, String[] tegs,
+                           String status, String priority, Long taskId) {
 
         Task task = taskRepository.getById(taskId);
         LOGGER.info("get Task: {} for updating", task);
@@ -114,6 +108,16 @@ public class TaskService {
         task.setHours(Short.parseShort(hours));
         task.setStatus(Status.valueOf(status));
         task.setPriority(Priority.valueOf(priority));
+
+        Set<Teg> newTegsForTask = new HashSet<>();
+        System.out.println(tegs);
+        for (String tegName : tegs) {
+            Teg teg = tegRepository.getByTitle(tegName);
+            newTegsForTask.add(teg);
+        }
+        LOGGER.info("Got tegs: {} for new task: {}", newTegsForTask, task);
+        task.setTegs(newTegsForTask);
+
         LOGGER.info("update task with id: {} to: {}", taskId, task);
 
         taskRepository.saveOrUpdate(task);
