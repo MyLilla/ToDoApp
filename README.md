@@ -16,6 +16,10 @@ After authorization/registration, the user enters an individual page
 
 ```localhost:7777```
 
+```test user login: user```
+
+```test user password: qwerty```
+
 <h3 ><a>Class description</a></h3>
 >root of the project:
 - ```main``` - application code directory
