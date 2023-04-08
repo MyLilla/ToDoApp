@@ -7,7 +7,7 @@
 
     <changeSet id="create_task_table" author="Lilla">
 
-        <createTable tableName="task" schemaName="todo">
+        <createTable tableName="tasks" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -42,14 +42,14 @@
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="task"
+        <addForeignKeyConstraint baseTableName="tasks"
                                  baseTableSchemaName="todo"
                                  baseColumnNames="user_id"
                                  constraintName="FK_TASK_USER_ID"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
-        <createSequence sequenceName="task_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
+        <createSequence sequenceName="tasks_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
     </changeSet>
 </databaseChangeLog>

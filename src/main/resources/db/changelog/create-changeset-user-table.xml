@@ -11,7 +11,7 @@
             CREATE SCHEMA IF NOT EXISTS todo;
         </sql>
 
-        <createTable tableName="user" schemaName="todo">
+        <createTable tableName="users" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -31,6 +31,6 @@
 
         </createTable>
 
-        <createSequence sequenceName="user_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
+        <createSequence sequenceName="users_id_seq" incrementBy="2" startValue="1" schemaName="todo"/>
     </changeSet>
 </databaseChangeLog>

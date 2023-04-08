@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "todo", name = "task")
+@Table(schema = "todo", name = "tasks")
 public class Task {
 
     @Id

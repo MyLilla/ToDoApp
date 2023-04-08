@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "todo", name = "teg")
+@Table(schema = "todo", name = "tegs")
 public class Teg {
 
     @Id

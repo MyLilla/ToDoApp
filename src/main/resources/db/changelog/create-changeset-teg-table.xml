@@ -7,7 +7,7 @@
 
     <changeSet id="create_teg_table" author="Lilla">
 
-        <createTable tableName="teg" schemaName="todo">
+        <createTable tableName="tegs" schemaName="todo">
 
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -26,15 +26,15 @@
 
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="teg"
+        <addForeignKeyConstraint baseTableName="tegs"
                                  baseTableSchemaName="todo"
                                  baseColumnNames="user_id"
                                  constraintName="FK_TEG_USER_ID"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
-        <createSequence sequenceName="teg_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
+        <createSequence sequenceName="tegs_id_seq" incrementBy="1" startValue="1" schemaName="todo"/>
 
     </changeSet>
 </databaseChangeLog>

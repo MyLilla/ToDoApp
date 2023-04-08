@@ -21,7 +21,7 @@
                                  baseTableSchemaName="todo"
                                  baseColumnNames="teg_id"
                                  constraintName="FK_TASK_TEG_ID"
-                                 referencedTableName="teg"
+                                 referencedTableName="tegs"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 
@@ -29,7 +29,7 @@
                                  baseTableSchemaName="todo"
                                  baseColumnNames="task_id"
                                  constraintName="FK_TEG_TASK_ID"
-                                 referencedTableName="task"
+                                 referencedTableName="tasks"
                                  referencedTableSchemaName="todo"
                                  referencedColumnNames="id"/>
 

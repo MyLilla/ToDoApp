@@ -9,5 +9,5 @@
     <include file="create-changeset-teg-table.xml" relativeToChangelogFile="true"/>
     <include file="create-changeset-task-to-teg-table.xml" relativeToChangelogFile="true"/>
     <include file="add-test-dates.xml" relativeToChangelogFile="true"/>
-<!--    <include file="add-test-chains.xml" relativeToChangelogFile="true"/>-->
+    <include file="add-test-chains.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
