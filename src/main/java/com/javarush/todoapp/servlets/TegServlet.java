@@ -39,7 +39,6 @@ public class TegServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /teg, method: GET, get all user's tegs");
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 
@@ -57,7 +56,6 @@ public class TegServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /teg, method: POST, creating new Teg");
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 

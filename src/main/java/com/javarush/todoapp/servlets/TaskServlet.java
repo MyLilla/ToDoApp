@@ -36,7 +36,6 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /task, method: GET, get task list");
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 
@@ -53,7 +52,6 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /task, method: POST, creating new task");
 
         Long userId = (Long) request.getSession().getAttribute("userId");
 
@@ -73,7 +71,6 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /task, method: DELETE");
 
         String id = request.getParameter("id");
         LOGGER.info("id for delete: {}", id);
@@ -83,7 +80,6 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: task, method: PUT, get count tasks");
 
         User user = (User) request.getSession().getAttribute("user");
 

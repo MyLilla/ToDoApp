@@ -33,6 +33,7 @@ public class TegHibernateRepository extends GeneralHibernateRepository implement
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery
                     ("from Teg t where t.title = '" + title + "'", Teg.class);
+            LOGGER.debug("Got teg with title: {}", title);
             return (Teg) query.getSingleResult();
         } catch (NoResultException exception) {
             return null;

@@ -46,6 +46,7 @@ public class UserHibernateRepository extends GeneralHibernateRepository implemen
     @Override
     public User getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
+            LOGGER.debug("Got user id: {}", id);
             return session.get(User.class, id);
         }
     }

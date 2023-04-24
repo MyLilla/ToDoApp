@@ -2,6 +2,7 @@ package com.javarush.todoapp.services;
 
 import com.javarush.todoapp.dto.*;
 import com.javarush.todoapp.enums.*;
+import com.javarush.todoapp.exceptions.TaskException;
 import com.javarush.todoapp.mappers.*;
 import com.javarush.todoapp.model.*;
 import com.javarush.todoapp.repositories.*;
@@ -31,25 +32,31 @@ public class TaskService {
 
     public List<TaskDto> getAllTasksDto(Long userId, String countTasks) {
 
-        Integer size = Integer.parseInt(countTasks);
-        List<Task> taskList = taskRepository.getAllWithLimit(userId, size);
-        LOGGER.info("Got task list: {} for user: {}", taskList, userId);
-
-        List<TaskDto> taskDtoList = new ArrayList<>();
-        for (Task task : taskList) {
-            TaskDto taskDto = taskMapper.toTaskDto(task);
-
-            Set<TegDto> tegDtos = new HashSet<>();
-            for (Teg teg : task.getTegs()) {
-                TegDto tegDto = tegMapper.toTegDto(teg);
-                tegDtos.add(tegDto);
-            }
-            taskDto.setTegs(tegDtos);
-            LOGGER.info("Convert tegs to tegsDto list: {}", tegDtos);
-
-            taskDtoList.add(taskDto);
+        Integer size;
+        try {
+            size = Integer.parseInt(countTasks);
+        } catch (NumberFormatException exception) {
+            LOGGER.debug("Count: {} is not number", countTasks);
+            throw new TaskException("Couldn't get all Tasks", exception);
         }
-        LOGGER.info("Convert task to taskDto list: {}", taskDtoList);
+            List<Task> taskList = taskRepository.getAllWithLimit(userId, size);
+            LOGGER.info("Got task list: {} for user: {}", taskList, userId);
+
+            List<TaskDto> taskDtoList = new ArrayList<>();
+            for (Task task : taskList) {
+                TaskDto taskDto = taskMapper.toTaskDto(task);
+
+                Set<TegDto> tegDtos = new HashSet<>();
+                for (Teg teg : task.getTegs()) {
+                    TegDto tegDto = tegMapper.toTegDto(teg);
+                    tegDtos.add(tegDto);
+                }
+                taskDto.setTegs(tegDtos);
+                LOGGER.info("Convert tegs to tegsDto list: {}", tegDtos);
+
+                taskDtoList.add(taskDto);
+            }
+            LOGGER.info("Convert task to taskDto list: {}", taskDtoList);
         return taskDtoList;
     }
 

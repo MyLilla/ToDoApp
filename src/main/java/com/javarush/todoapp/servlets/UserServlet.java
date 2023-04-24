@@ -32,7 +32,6 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /user, method: POST, sign un user");
 
         String login = request.getParameter("login");
         String password = request.getParameter("password");

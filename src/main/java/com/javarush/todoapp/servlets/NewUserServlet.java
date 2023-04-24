@@ -33,7 +33,6 @@ public class NewUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /newUser, method: post, log in new user");
 
         String name = request.getParameter("name");
         String login = request.getParameter("login");
@@ -60,7 +59,6 @@ public class NewUserServlet extends HttpServlet {
                 user, user.getUserName(), user.getLogin());
 
         request.getSession().setAttribute("userId", user.getId());
-
         getServletContext().getRequestDispatcher("/dashboard.html").forward(request, response);
     }
 }

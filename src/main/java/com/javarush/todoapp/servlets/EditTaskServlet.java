@@ -32,7 +32,6 @@ public class EditTaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /editTask, method: GET");
 
         String taskForEditId = request.getParameter("taskForEditId");
         request.getSession().setAttribute("taskForEditId", taskForEditId);
@@ -48,7 +47,6 @@ public class EditTaskServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /editTask, method: PUT, show task for edit");
 
         TaskDto taskDto = (TaskDto) request.getSession().getAttribute("task");
         LOGGER.info("TaskDto: {}", taskDto);
@@ -62,7 +60,6 @@ public class EditTaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("url: /editTask, method: POST, changing task");
 
         Long taskId = Long.parseLong((String) request.getSession().getAttribute("taskForEditId"));
         LOGGER.info("task id for edit: {}", taskId);
