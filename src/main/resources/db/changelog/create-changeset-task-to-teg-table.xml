@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create_task_to_teg_table" author="Lilla">
+
+        <createTable tableName="task_teg" schemaName="todo">
+
+            <column name="task_id" type="bigint">
+            </column>
+
+            <column name="teg_id" type="bigint">
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="task_teg"
+                                 baseTableSchemaName="todo"
+                                 baseColumnNames="teg_id"
+                                 constraintName="FK_TASK_TEG_ID"
+                                 referencedTableName="tegs"
+                                 referencedTableSchemaName="todo"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="task_teg"
+                                 baseTableSchemaName="todo"
+                                 baseColumnNames="task_id"
+                                 constraintName="FK_TEG_TASK_ID"
+                                 referencedTableName="tasks"
+                                 referencedTableSchemaName="todo"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+</databaseChangeLog>

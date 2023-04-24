@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body onload="showTegs()">
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="container text-center col-md-7">
+
+    <h1>Creating new task</h1>
+    <form id="newTask" action="task" method="post">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Task title:
+            </span>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Description:
+            </span>
+            <input type="text" name="description" id="description" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Hours for task:
+            </span>
+            <input step="1" min="1" max="100"
+                   type="number" name="hours" id="hours" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Tegs:
+            </span>
+
+            <select name="tegs[]" id="tegs" class="form-control" multiple="multiple">
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Status:
+            </span>
+            <select name="status" id="status" class="form-control">
+                <option value="CREATED">created</option>
+                <option value="PROGRESS">progress</option>
+                <option value="DONE">done</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                Priority:
+            </span>
+            <select name="priority" id="priority" class="form-control">
+                <option value="HIGH">high</option>
+                <option value="MEDIUM">medium</option>
+                <option value="LOW">low</option>
+            </select>
+        </div>
+
+        <br>
+        <input id="create_new_task" type="submit" value="Create">
+    </form>
+</div>
+
+<script>
+    function showTegs() {
+        let url = "teg"
+        $.get(url, function (response) {
+
+            const tegs = document.getElementById('tegs');
+            $.each(response, function (i, teg) {
+                let option = document.createElement('option');
+                option.text = teg.title;
+                option.value = teg.title;
+                tegs.appendChild(option);
+            });
+        });
+    }
+
+</script>
+
+</body>
+</html>

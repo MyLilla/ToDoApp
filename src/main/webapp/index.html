@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="row text-center">
+    <div class="rol-6">
+        <br/>
+        <button class="btn btn-primary" type="button" onclick="show_enter();"> sign up</button>
+        <button class="btn btn-primary" type="button" onclick="show_regForm();"> log in</button>
+    </div>
+    <br/>
+
+    <!--sign up-->
+    <div id="hide_enter" style="display:none;">
+
+        <form id="enter" action="user" method="post">
+            Login:<br>
+            <input type="text" name="login" id="login"><br>
+            Password:<br>
+            <input type="text" name="password" id="password">
+            <br>
+            <br>
+            <input id="enter_with_password" type="submit" value="Go to task">
+        </form>
+    </div>
+
+    <!--log in-->
+    <div id="hide_regForm" style="display:none;">
+
+        <form id="registration" action="newUser" method="post">
+            User Name:<br>
+            <input type="text" name="name" id="name"><br>
+            Login:<br>
+            <input type="text" name="login" id="newLogin">
+            <br>
+            Password:<br>
+            <input type="text" name="password" id="newPassword">
+            <br>
+            <br>
+            <input id="send" type="submit" value="Зарегистрироваться">
+            <input id="clear" type="reset" value="Отчистить форму">
+        </form>
+    </div>
+
+    <br><br>
+    <h1 id="errorElement">
+
+    </h1>
+
+
+</div>
+</section>
+
+<script>
+    function show_enter() {
+        document.getElementById("hide_enter").style.display = 'block';
+        document.getElementById("hide_regForm").style.display = 'none';
+    }
+
+    function show_regForm() {
+        document.getElementById("hide_regForm").style.display = 'block';
+        document.getElementById("hide_enter").style.display = 'none';
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+        const element = document.getElementById("errorElement")
+        element.innerHTML = error;
+    }
+
+</script>
+
+</body>
+</html>

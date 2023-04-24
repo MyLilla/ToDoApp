@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  servlet:
+    container_name: todo_app
+    build: .
+    ports:
+      - "7777:8080"
+    depends_on:
+      - postgres_db
+  postgres_db:
+    image: "postgres:14"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ToDoApplication</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body onload="show_tasks()">
+
+<header>
+    <div class="container"></div>
+</header>
+
+<div class="text-center container">
+    <button type="button" class="btn btn-dark text-center"
+            onclick="document.location='/index.html'">
+        Sigh out
+    </button>
+</div>
+
+<section id="tasks">
+    <div class="container">
+
+        <label for="countTask"> Count per page:</label>
+        <select id="countTask" onchange="show_tasks()">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="100">All</option>
+        </select>
+        <br><br>
+        <table id="table">
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>Tegs</th>
+                <th>Priority</th>
+                <th>Date</th>
+            </tr>
+        </table>
+
+    </div>
+</section>
+
+<br><br>
+
+<div class="text-center container">
+    <button type="button" class="btn btn-success text-center"
+            onclick="document.location='/task.html'">
+        Create new task
+    </button>
+    <br><br>
+
+    <button type="button" class="btn btn-dark text-center"
+            onclick="document.location='/createTeg.html'">
+        Create new teg
+    </button>
+</div>
+
+<script>
+    function show_tasks() {
+
+        $("tr:has(td)").remove();
+
+        var countTasks = $("#countTask").val();
+        if (countTasks == null) {
+            countTasks = 3;
+        }
+        if (countTasks === 100) {
+            countTasks = getCountAllTasks();
+        }
+
+        let url = "task";
+        url = url.concat("?countTasks=").concat(countTasks);
+
+        $.get(url, function (response) {
+            $.each(response, function (i, task) {
+
+                let allTags = "";
+
+                $.each(task.tegs, function (i, tegs) {
+                    allTags += tegs.title;
+                    allTags += " ";
+                })
+
+                $('<tr>').html("<td>"
+                    + task.title + "</td><td>"
+                    + task.description + "</td><td>"
+                    + task.hours + "</td><td>"
+                    + task.status + "</td><td>"
+                    + allTags
+                    + "</td><td>"
+                    + task.priority + "</td><td>"
+                    + new Date(task.createDate).toLocaleDateString() + "</td><td>"
+
+                    + "<button id='buttonDelete' onclick='deleteTask(" + task.id + ")'>"
+                    + "<img src='/img/delete.png'>"
+                    + "</button>" + "</td>"
+
+                    + "<td><a href='/editTask?taskForEditId=" + task.id + "'>"
+                    + "<img src='/img/edit.png'>"
+                    + "</a>" + "</td>"
+
+                    + "</tr>"
+                ).appendTo("#table");
+            });
+        });
+    }
+
+    function getCountAllTasks() {
+        var res = 0;
+        $.ajax({
+            url: "task",
+            async: false,
+            type: 'PUT',
+            dataType: 'json',
+            success: function (count) {
+                res = count;
+            }
+        });
+        return res;
+    }
+
+    function deleteTask(id) {
+        let url = "task?id=" + id;
+
+        $.ajax({
+            url: url,
+            async: false,
+            type: 'DELETE',
+            success: function () {
+                show_tasks();
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>
