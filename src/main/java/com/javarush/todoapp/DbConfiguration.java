@@ -21,13 +21,13 @@ public class DbConfiguration {
 
         Properties properties = new Properties();
 
-        properties.put("hibernate.connection.driver_class", System.getenv("DB_DRIVER"));
-        properties.put("hibernate.dialect", System.getenv("DB_DIALECT"));
-        properties.put("hibernate.connection.url", System.getenv("DB_URL_LOCAL"));
-        properties.put("hibernate.connection.username", System.getenv("DB_USER"));
-        properties.put("hibernate.connection.password", System.getenv("DB_PASSWORD"));
+        properties.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        properties.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres");
+        properties.put("hibernate.connection.username", "postgres");
+        properties.put("hibernate.connection.password", "1234");
 
-        properties.put("hibernate.hbm2ddl", System.getenv("DB_HBM2DDL_AUTO"));
+        properties.put("hibernate.hbm2ddl", "validate");
 
         LOGGER.info("Added properties for data base: {}", properties);
 

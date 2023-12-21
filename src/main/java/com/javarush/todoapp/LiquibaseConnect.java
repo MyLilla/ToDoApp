@@ -40,10 +40,10 @@ public class LiquibaseConnect {
 
     private Properties readProperties() {
         Properties properties = new Properties();
-        properties.put("driverClassName", System.getenv("DB_DRIVER"));
-        properties.put("jdbcUrl", System.getenv("DB_URL_LOCAL"));
-        properties.put("username", System.getenv("DB_USER"));
-        properties.put("password", System.getenv("DB_PASSWORD"));
+        properties.put("driverClassName", "org.postgresql.Driver");
+        properties.put("jdbcUrl", "jdbc:postgresql://localhost:5432/postgres");
+        properties.put("username", "postgres");
+        properties.put("password", "1234");
 
         return properties;
     }
