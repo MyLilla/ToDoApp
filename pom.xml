@@ -12,8 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.release>21</maven.compiler.release>
+
     </properties>
 
     <dependencies>
@@ -42,12 +42,6 @@
             <artifactId>postgresql</artifactId>
             <version>42.5.3</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>p6spy</groupId>-->
-<!--            <artifactId>p6spy</artifactId>-->
-<!--            <version>3.9.1</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -140,21 +134,18 @@
             <scope>test</scope>
         </dependency>
 
-
-
     </dependencies>
 
     <build>
-        <finalName>ROOT</finalName>
+        <finalName>ToDo</finalName>
         <plugins>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>21</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -185,11 +176,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
-               <configuration>
+                <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
-<!--                    <forkCount>2</forkCount>-->
-<!--                    <reuseForks>true</reuseForks>-->
-<!--                    <argLine>${surefireArgLine}</argLine>-->
                 </configuration>
             </plugin>
 

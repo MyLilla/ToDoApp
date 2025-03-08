@@ -14,7 +14,7 @@ After authorization/registration, the user enters an individual page
 
 <h3 ><a>Launch:</a></h3>
 
-```localhost:7777```
+```localhost:7777/ToDo```
 
 ```test user login: user```
 
