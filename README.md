@@ -8,13 +8,11 @@ After authorization/registration, the user enters an individual page
 * You can add new tasks and delete created ones
 * Tasks have tags
 
-<h3 ><a>Building & Deployed app</a></h3>
-
-```docker-compose up```
-
 <h3 ><a>Launch:</a></h3>
 
-```localhost:7777/ToDo```
+```- DB Ppostgres:14 (password 1234)```
+
+```- app```
 
 ```test user login: user```
 
